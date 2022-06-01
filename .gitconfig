@@ -1,0 +1,13 @@
+[user]
+	name = Azathoth1729
+	email = aa1203528272@gmail.com
+[init]
+	defaultBranch = main
+[credential]
+	helper = store
+#[http "https://github.com"]
+#	proxy = http://127.0.0.1:9981
+#[https "https://github.com"]
+#	proxy = https://127.0.0.1:9981
+[core]
+	editor = vim
