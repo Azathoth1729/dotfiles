@@ -8,6 +8,17 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+export XMODIFIERS=@im=fcitx5
+export XIM_SERVERS=fcitx5
+export GTK_IM_MODULE=fcitx5
+export QT4_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS="@im=fcitx5"
+
+export EDITOR=/bin/nvim
+export TERMINFO=/usr/share/terminfo
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists

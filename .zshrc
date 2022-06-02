@@ -110,7 +110,15 @@ alias pf="poweroff"
 alias sr="source"
 alias sysctl="systemctl"
 alias reclash="sysctl restart clash"
+
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+alias ca="config add"
+alias cau="ca -u"
+alias cm="config commit"
+alias cst="config status"
+alias crm="config rm"
+
+alias rx="xmonad --recompile; xmonad --restart"
 
 # <<< alias end <<<
 
