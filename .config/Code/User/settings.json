@@ -12,7 +12,6 @@
     "*.md": "vscode.markdown.preview.editor"
   },
   "git.autofetch": true,
-  "python.pythonPath": "",
   "html.format.preserveNewLines": false,
   "terminal.integrated.tabs.enabled": true,
   "[json]": {
@@ -211,4 +210,8 @@
   "haskell.manageHLS": "GHCup",
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)|todo!",
   "workbench.colorTheme": "One Dark Pro Flat",
+  "[haskell]": {
+    "editor.defaultFormatter": "haskell.haskell"
+  },
+  "haskell.formattingProvider": "floskell",
 }

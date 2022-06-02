@@ -109,16 +109,23 @@ alias sf="screenfetch"
 alias pf="poweroff"
 alias sr="source"
 alias sysctl="systemctl"
-alias reclash="sysctl restart clash"
 
+alias reclash="sysctl restart clash" # restart clash
+
+# config bare repo
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+alias conf="config"
+alias confp="config push"
+alias confl="config pull"
+
+
 alias ca="config add"
 alias cau="ca -u"
 alias cm="config commit"
 alias cst="config status"
 alias crm="config rm"
 
-alias rx="xmonad --recompile; xmonad --restart"
+alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 
 # <<< alias end <<<
 
@@ -161,7 +168,7 @@ export EDITOR=vim
 export VISUAL=/usr/bin/vim
 
 # java setting
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+#export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # spark setting
 export SPARK_HOME=/opt/spark
