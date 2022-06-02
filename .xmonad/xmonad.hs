@@ -4,7 +4,6 @@
 -- Base
 import           XMonad
 import qualified XMonad.StackSet as W
-import           System.Directory
 import           System.IO (hPutStrLn)
 import           System.Exit (exitSuccess)
 -- Actions
@@ -13,7 +12,6 @@ import           XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo
                                        , WSType(..), nextScreen, prevScreen)
 import           XMonad.Actions.GridSelect
 import           XMonad.Actions.MouseResize
-import           XMonad.Actions.Promote
 import           XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import           XMonad.Actions.WindowGo (runOrRaise)
 import           XMonad.Actions.WithAll (sinkAll, killAll)
@@ -22,7 +20,6 @@ import qualified XMonad.Actions.Search as S
 import           Data.Char (isSpace, toUpper)
 import           Data.Maybe (fromJust, isJust)
 import           Data.Monoid
-import           Data.Tree
 import qualified Data.Map as M
 -- Hooks
 import           XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP
@@ -121,16 +118,19 @@ myFocusColor = color15     -- This variable is imported from Colors.THEME
 -- per-workspace layout choices.
 myStartupHook :: X ()
 myStartupHook = do
-  spawn "killall xmobar"  -- kill current xmobar on each restart
   spawn "killall conky"   -- kill current conky on each restart
   spawn "killall trayer"  -- kill current trayer on each restart
   spawnOnce "nitrogen --restore &"
   spawnOnce "picom &"
+  spawn
+    ("sleep 2 && conky -c $HOME/.config/conky/xmonad/"
+     ++ colorScheme
+     ++ "-01.conkyrc")
+  spawn
+    ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 "
+     ++ colorTrayer
+     ++ " --height 22")
 
-  -- spawn
-  --   ("sleep 2 && conky -c $HOME/.config/conky/xmonad/"
-  --    ++ colorScheme
-  --    ++ "-01.conkyrc")
 ------------------------------------------------------
 -- Gridselect
 ------------------------------------------------------
@@ -372,15 +372,15 @@ myLayoutHook = avoidStruts
 --
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces =
-  [ " dev "
-  , " www "
-  , " doc "
-  , " translate "
-  , " sys "
-  , " mus "
-  , " chat "
-  , " vedio "
-  , " game "]
+  [ "dev"
+  , "www"
+  , "sh"
+  , "dict"
+  , "sys"
+  , "mus"
+  , "chat"
+  , "video"
+  , "game"]
 
 myWorkspaceIndices = M.fromList $ zip myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
 
@@ -434,7 +434,7 @@ myManageHook = composeAll
 ------------------------------------------------------
 -- Keybindings
 ------------------------------------------------------
-myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
+myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList 
   $
   -- launch a terminal
   [ ((modm, xK_Return), spawn $ XMonad.terminal conf)
@@ -477,25 +477,26 @@ myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+  , ((modm, xK_b), sendMessage ToggleStruts)
     -- Quit xmonad
   , ((modm .|. shiftMask, xK_q), io exitSuccess)
     -- Restart xmonad
-  , ((modm, xK_q), spawn " xmonad --recompile; xmonad --restart")
+  , ( (modm, xK_q)
+    , spawn "  killall xmobar; xmonad --recompile; xmonad --restart")
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
   , ( (modm .|. shiftMask, xK_slash)
     , spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))]
   -- Custom applications
-  ++ [ ((modm, xK_f), spawn "firefox")
-     , ((modm, xK_c), spawn "code")] -- Launch Firefox
+  ++ [ ((modm, xK_f), spawn "firefox") -- Launch Firefox
+     , ((modm, xK_c), spawn "code")]
   -- Hardware Control
   ++ [ ( (0, xF86XK_AudioMute)
        , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle") -- Audio Control
      , ( (0, xF86XK_AudioLowerVolume)
-       , spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+       , spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")  -- Audio Increase
      , ( (0, xF86XK_AudioRaiseVolume)
-       , spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")]
+       , spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%") -- Audio decrease
+     ]
   ++
   --
   -- mod-[1..9], Switch to workspace N
