@@ -438,10 +438,14 @@ myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
   $
   -- launch a terminal
   [ ((modm, xK_Return), spawn $ XMonad.terminal conf)
-    -- launch dmenu
-  , ((modm, xK_p), spawn "dmenu_run")
+    -- launch rofi as combine window and run mode
+--  , ((modm, xK_p), spawn "rofi -show combi")
+
+    -- launch rofi as run mode
+  , ((modm, xK_p), spawn "rofi -show drun")
     -- launch gmrun
-  , ((modm .|. shiftMask, xK_p), spawn "gmrun")
+--  , ((modm .|. shiftMask, xK_p), spawn "gmrun")
+
     -- close focused window
   , ((modm .|. shiftMask, xK_c), kill)
     -- Rotate through the available layout algorithms
@@ -490,12 +494,12 @@ myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
   ++ [ ((modm, xK_f), spawn "firefox") -- Launch Firefox
      , ((modm, xK_c), spawn "code")]
   -- Hardware Control
-  ++ [ ( (0, xF86XK_AudioMute)
-       , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle") -- Audio Control
-     , ( (0, xF86XK_AudioLowerVolume)
-       , spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")  -- Audio Increase
-     , ( (0, xF86XK_AudioRaiseVolume)
-       , spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%") -- Audio decrease
+  ++ [
+       ((0, xF86XK_MonBrightnessUp),   spawn "brightnessctl set +5%")   -- brightness up
+     , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")   -- brightness down
+     , ((0, xF86XK_AudioMute) ,        spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")     -- Audio Control
+     , ((0, xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")      -- Audio Increase
+     , ((0, xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")      -- Audio decrease
      ]
   ++
   --

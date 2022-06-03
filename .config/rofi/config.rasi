@@ -4,5 +4,3 @@ configuration {
  combi-modi: "window,drun,ssh";
  }
 @theme "~/.config/rofi/themes/dt-center.rasi"
-
-

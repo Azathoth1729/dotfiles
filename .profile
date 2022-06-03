@@ -41,6 +41,9 @@ fi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# haskell
+# local bin
 export PATH=$PATH:~/.local/bin
 . "$HOME/.cargo/env"
+
+# doom emacs
+export PATH=$PATH:$HOME/.emacs.d/doom/bin
