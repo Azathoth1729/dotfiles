@@ -16,7 +16,7 @@ ZSH_THEME="dracula"
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/

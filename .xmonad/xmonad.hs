@@ -233,14 +233,12 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
 -- Layouts
 ------------------------------------------------------
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
-mySpacing
-  :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 -- Below is a variation of the above except no borders are applied
 -- if fewer than two windows. So a single window has no gaps.
-mySpacing'
-  :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 -- Defining a bunch of layouts, many that I don't use.
@@ -372,15 +370,7 @@ myLayoutHook = avoidStruts
 --
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces =
-  [ "dev"
-  , "www"
-  , "sh"
-  , "dict"
-  , "sys"
-  , "mus"
-  , "chat"
-  , "video"
-  , "game"]
+  [ "dev", "www", "sh", "dict", "sys", "mus", "chat", "video", "game"]
 
 myWorkspaceIndices = M.fromList $ zip myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
 
@@ -411,23 +401,26 @@ myManageHook = composeAll
   -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
   -- I'm doing it this way because otherwise I would have to write out the full
   -- name of my workspaces and the names would be very long if using clickable workspaces.
-  [ className =? "confirm" --> doFloat
+  [
+   (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
   , className =? "file_progress" --> doFloat
-  , className =? "dialog" --> doFloat
-  , className =? "download" --> doFloat
-  , className =? "error" --> doFloat
-  , className =? "Gimp" --> doFloat
-  , className =? "notification" --> doFloat
   , className =? "pinentry-gtk-2" --> doFloat
-  , className =? "splash" --> doFloat
+  , className =? "notification" --> doFloat
+  , className =? "fcitx5-config-qt" --> doFloat
+  , className =? "download" --> doFloat
   , className =? "toolbar" --> doFloat
+  , className =? "confirm" --> doFloat
+  , className =? "splash" --> doFloat
+  , className =? "dialog" --> doFloat
+  , className =? "error" --> doFloat
+  , className =? "Steam" --> doFloat
+  , className =? "Gimp" --> doFloat
   , title =? "Oracle VM VirtualBox Manager" --> doFloat
   , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1)
   , className =? "Brave-browser" --> doShift (myWorkspaces !! 1)
   , className =? "mpv" --> doShift (myWorkspaces !! 7)
   , className =? "Gimp" --> doShift (myWorkspaces !! 8)
   , className =? "VirtualBox Manager" --> doShift (myWorkspaces !! 4)
-  , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
   ]
   <+> namedScratchpadManageHook myScratchPads
 

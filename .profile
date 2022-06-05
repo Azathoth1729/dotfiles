@@ -15,7 +15,7 @@ export QT4_IM_MODULE=fcitx5
 export QT_IM_MODULE=fcitx5
 export XMODIFIERS="@im=fcitx5"
 
-export EDITOR=/bin/nvim
+export EDITOR=/bin/vim
 export TERMINFO=/usr/share/terminfo
 export XDG_CONFIG_HOME="$HOME/.config"
 
