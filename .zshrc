@@ -68,16 +68,17 @@ alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 proxyon() {
     export http_proxy=http://127.0.0.1:9981
     export https_proxy=http://127.0.0.1:9981
+    export all_proxy="socks5://127.0.0.1:9981"
     echo "proxy is now firing up."
 }
 
 proxyoff() {
     unset http_proxy
     unset https_proxy
+    unset all_proxy
     echo "proxy is now canceled."
 }
 
-export all_proxy="socks5://127.0.0.1:9981"
 
 
 
