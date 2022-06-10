@@ -1,39 +1,66 @@
 {
+  // files
   "files.autoSave": "afterDelay",
-  "latex-workshop.view.pdf.viewer": "tab",
-  "editor.largeFileOptimizations": false,
-  "python.defaultInterpreterPath": "/home/azathoth/miniconda3/envs/data-science/bin/python",
-  "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
-  "python.languageServer": "Default",
   "files.autoGuessEncoding": true,
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true,
+    "**/.ammonite": true
+  },
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  // editor
+  "editor.tabSize": 2,
+  "editor.fontSize": 15,
+  "editor.largeFileOptimizations": false,
+  "editor.detectIndentation": false,
+  "editor.renderWhitespace": "all",
   "editor.suggestSelection": "first",
+  // windows
+  "window.zoomLevel": 2,
+  // terminal
+  "terminal.integrated.tabs.enabled": true,
+  "terminal.integrated.inheritEnv": false,
+  // workbench
+  "workbench.colorTheme": "One Dark Pro Flat",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook",
     "*.md": "vscode.markdown.preview.editor"
   },
-  "git.autofetch": true,
-  "html.format.preserveNewLines": false,
-  "terminal.integrated.tabs.enabled": true,
-  "[json]": {
-    "editor.quickSuggestions": {
-      "strings": true
-    },
-    "editor.suggest.insertMode": "replace",
-    "editor.defaultFormatter": "vscode.json-language-features",
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "notebook.cellToolbarLocation": {
-    "default": "right",
-    "jupyter-notebook": "right"
-  },
-  "liveServer.settings.donotShowInfoMsg": true,
-  "explorer.confirmDragAndDrop": false,
-  "explorer.confirmDelete": false,
-  "jupyter.askForKernelRestart": false,
-  "terminal.integrated.inheritEnv": false,
-  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+
+  // proxy
+  "http.proxy": "http://127.0.0.1:9981",
+
+  // latex
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.outDir": "build",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "--xelatex",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Latexmk",
+      "tools": ["latexmk"]
+    }
+  ],
+  
+  // code-runner
   "code-runner.executorMap": {
     "javascript": "~/.volta/bin/node",
     "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
@@ -43,7 +70,7 @@
     "php": "php",
     "python": "python -u",
     "perl": "perl",
-    "perl6": "perl6",
+    "perl5": "perl6",
     "ruby": "ruby",
     "go": "go run",
     "lua": "lua",
@@ -69,12 +96,12 @@
     "racket": "racket",
     "scheme": "csi -script",
     "ahk": "autohotkey",
-    "autoit": "autoit3",
+    "autoit": "autoit2",
     "dart": "dart",
     "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
     "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
     "haskell": "runhaskell",
-    "nim": "nim compile --verbosity:0 --hints:off --run",
+    "nim": "nim compile --verbosity:-1 --hints:off --run",
     "lisp": "sbcl --script",
     "kit": "kitc --run",
     "v": "v run",
@@ -86,132 +113,50 @@
     "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
     "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
   },
+
+  // python
+  "python.defaultInterpreterPath": "/usr/bin/python",
+  "python.languageServer": "Default",
+
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)|todo!",
+
+  // git
+  "git.autofetch": true,
+
+  "html.format.preserveNewLines": false,
+
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "right"
+  },
+
+  "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
-  "files.exclude": {
-    "**/.classpath": true,
-    "**/.project": true,
-    "**/.settings": true,
-    "**/.factorypath": true
-  },
-  "redhat.telemetry.enabled": false,
-  // material icon theme configuration
-  "workbench.iconTheme": "material-icon-theme",
+
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
+  "jupyter.askForKernelRestart": false,
+  "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
+
   "debug.javascript.autoAttachFilter": "smart",
+
   "json.maxItemsComputed": 500000,
+
   "cmake.configureOnOpen": true,
+
   "tabnine.experimentalAutoImports": true,
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "jupyter.widgetScriptSources": [
-    "jsdelivr.com",
-    "unpkg.com"
-  ],
-  "matlab.mlintpath": "~/backup/matlab-r2021a/bin/glnxa64/mlint",
-  "matlab.matlabpath": "~/backup/matlab-r2021a/bin/matlab",
-  "matlab.linterEncoding": "utf8",
-  "files.associations": {
-    "*.m": "matlab"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "files.watcherExclude": {
-    "**/.bloop": true,
-    "**/.metals": true,
-    "**/.ammonite": true
-  },
-  "ocaml-formatter.eval-opam-env": true,
-  "[ocaml]": {
-    "editor.defaultFormatter": "badochov.ocaml-formatter"
-  },
-  "http.proxy": "http://127.0.0.1:9981",
-  "editor.detectIndentation": false,
-  "editor.tabSize": 2,
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.fontSize": 15,
-  "latex-workshop.latex.recipes": [
-    {
-      "name": "xelatex",
-      "tools": [
-        "xelatex"
-      ],
-    },
-    {
-      "name": "pdflatex",
-      "tools": [
-        "pdflatex"
-      ]
-    },
-    {
-      "name": "xe->bib->xe->xe",
-      "tools": [
-        "xelatex",
-        "bibtex",
-        "xelatex",
-        "xelatex"
-      ]
-    },
-    {
-      "name": "pdf->bib->pdf->pdf",
-      "tools": [
-        "pdflatex",
-        "bibtex",
-        "pdflatex",
-        "pdflatex"
-      ]
-    }
-  ],
-  "latex-workshop.latex.tools": [
-    {
-      // Compilation tools and commands
-      "name": "xelatex",
-      "command": "xelatex",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "-pdf",
-        "%DOCFILE%"
-      ]
-    },
-    {
-      "name": "pdflatex",
-      "command": "pdflatex",
-      "args": [
-        "-synctex=1",
-        "-interaction=nonstopmode",
-        "-file-line-error",
-        "%DOCFILE%"
-      ]
-    },
-    {
-      "name": "bibtex",
-      "command": "bibtex",
-      "args": [
-        "%DOCFILE%"
-      ]
-    }
-  ],
+
   "browse-lite.chromeExecutable": "/usr/bin/google-chrome-stable",
+
+  // formatter
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "markdown.marp.exportType": "pptx",
-  "markdown.marp.enableHtml": true,
-  "haskell.manageHLS": "GHCup",
-  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)|todo!",
-  "workbench.colorTheme": "One Dark Pro Flat",
-  "[haskell]": {
-    "editor.defaultFormatter": "haskell.haskell"
-  },
-  "haskell.formattingProvider": "floskell",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
