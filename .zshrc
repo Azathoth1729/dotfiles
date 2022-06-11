@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -8,15 +5,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="dracula"
 
 # use dircolors
-# eval `dircolors ~/.dir_colors/dircolors`
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -35,19 +28,29 @@ plugins=(
 # see 'man strftime' for details.
 HIST_STAMPS="mm/dd/yyyy"
 
-# >>> alias begin >>
-
+# oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
+### ALIASES ###
+
 alias c="clear"
-alias r="ranger"
-alias rb="reboot"
-alias sf="screenfetch"
-alias pf="poweroff"
 alias sr="source"
-alias sysctl="systemctl"
+
+alias rb="reboot"
+alias pf="poweroff"
+alias sysctl="sudo systemctl"
+
+## mkdir create parents by default
+alias mkdir="mkdir -pv"
+
+## confirmations
+alias mv="mv -i"
+alias cp="cp -i"
+alias rm="rm -i"
+alias ln="ln -i"
 
 
-# config bare repo
+## config bare repo
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias conf="config"
 alias confp="config push"
@@ -59,12 +62,14 @@ alias cm="config commit"
 alias cst="config status"
 alias crm="config rm"
 
+## applications
+alias sf="screenfetch"
+alias r="ranger"
 alias reclash="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 
-# <<< alias end <<<
 
-# proxy settings
+## proxy
 proxyon() {
     export http_proxy=http://127.0.0.1:9981
     export https_proxy=http://127.0.0.1:9981
@@ -81,8 +86,29 @@ proxyoff() {
 
 export all_proxy="socks5://127.0.0.1:9981"
 
+## navigation
+up() {
+  local d=""
+  local limit="$1"
 
-# >>> path setting >>>
+  # Default to limit of 1
+  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
+    limit=1
+  fi
+
+  for ((i=1;i<=limit;i++)); do
+    d="../$d"
+  done
+
+  # perform cd. Show error if cd fails
+  if ! cd "$d"; then
+    echo "Couldn't go up $limit dirs.";
+  fi
+}
+
+### ALIASES ###
+
+### PATH ###
 
 # custom path setting
 export WORKSHOP="$HOME/workshop"
@@ -112,7 +138,7 @@ export GO111MODULE=on
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# <<< path setting <<<
+### PATH ###
 
 # conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
@@ -122,6 +148,14 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 # opam configuration
 [[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
+
+
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
