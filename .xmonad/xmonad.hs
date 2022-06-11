@@ -81,7 +81,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask    -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "gnome-terminal"
+myTerminal = "alacritty"
 
 myBrowser :: String
 myBrowser = "firefox "  -- Sets qutebrowser as browser

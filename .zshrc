@@ -1,6 +1,3 @@
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -28,8 +25,64 @@ plugins=(
 # see 'man strftime' for details.
 HIST_STAMPS="mm/dd/yyyy"
 
-# oh-my-zsh
+
+### EXPORT ###
+
+# zsh and oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
+
+# editor
+export EDITOR=vim
+export VISUAL=/usr/bin/vim
+
+# custom path setting
+export WORKSHOP="$HOME/workshop"
+export SCRIPTS="$WORKSHOP/scripts"
+
+export TERMINFO=/usr/share/terminfo
+
+## set manpager
+
+# "bat" as manpager
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# "vim" as manpager
+
+# "nvim" as manpager
+
+
+# pdf2pptx
+export PATH="$SCRIPTS/pdf2pptx:$PATH"
+
+# doom emacs
+export PATH=$PATH:$HOME/.emacs.d/bin
+
+# java
+#export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+
+# spark
+export SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+# go
+export GOPATH=$(go env GOPATH) # Set GOPATH
+export GO111MODULE=on
+
+# volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+### EXPORT ###
+
+# conda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# ghcup
+[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
+
+# opam configuration
+[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
 ### ALIASES ###
 
@@ -48,7 +101,6 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias rm="rm -i"
 alias ln="ln -i"
-
 
 ## config bare repo
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
@@ -107,47 +159,6 @@ up() {
 }
 
 ### ALIASES ###
-
-### PATH ###
-
-# custom path setting
-export WORKSHOP="$HOME/workshop"
-export SCRIPTS="$WORKSHOP/scripts"
-export PATH="$SCRIPTS/pdf2pptx:$PATH"
-export TERMINFO=/usr/share/terminfo
-
-# editor seeting
-export EDITOR=vim
-export VISUAL=/usr/bin/vim
-
-# doom emacs
-export PATH=$PATH:$HOME/.emacs.d/bin
-
-# java setting
-#export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-
-# spark setting
-export SPARK_HOME=/opt/spark
-export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
-
-# go setting
-export GOPATH=$(go env GOPATH) # Set GOPATH
-export GO111MODULE=on
-
-# volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-### PATH ###
-
-# conda
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-
-# ghcup
-[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
-
-# opam configuration
-[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
 
 
