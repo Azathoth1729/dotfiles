@@ -86,12 +86,21 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 ### ALIASES ###
 
+## usual
 alias c="clear"
 alias sr="source"
 
+## sys
 alias rb="reboot"
 alias pf="poweroff"
 alias sysctl="sudo systemctl"
+
+## changing "ls" to "exa"
+alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first'  # long format
+alias lt='exa -aT --color=always --group-directories-first' # tree listing
+alias l.='exa -a | egrep "^\."'
 
 ## mkdir create parents by default
 alias mkdir="mkdir -pv"
@@ -104,9 +113,9 @@ alias ln="ln -i"
 
 ## config bare repo
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
-alias conf="config"
-alias confp="config push"
-alias confl="config pull"
+alias con="config"
+alias conp="config push"
+alias conl="config pull"
 
 alias ca="config add"
 alias cau="ca -u"
@@ -115,11 +124,10 @@ alias cst="config status"
 alias crm="config rm"
 
 ## applications
-alias sf="screenfetch"
 alias r="ranger"
+alias sf="screenfetch"
 alias reclash="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
-
 
 ## proxy
 proxyon() {
@@ -134,7 +142,6 @@ proxyoff() {
     unset all_proxy
     echo "proxy is now canceled."
 }
-
 
 export all_proxy="socks5://127.0.0.1:9981"
 
