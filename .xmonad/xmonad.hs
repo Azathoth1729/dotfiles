@@ -604,13 +604,13 @@ main = do
   -- Launching three instances of xmobar on their monitors.
   xmproc0 <-
     spawnPipe
-      ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0")
+      ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmproc1 <-
     spawnPipe
-      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1")
+      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1.hs")
   xmproc2 <-
     spawnPipe
-      ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-2")
+      ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-2.hs")
   xmonad $
     ewmh
       def -- simple stuff

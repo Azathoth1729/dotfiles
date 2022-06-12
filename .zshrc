@@ -2,15 +2,16 @@
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="dracula"
 
 # use dircolors
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
 # mcfly
-eval "$(mcfly init zsh)
-"
-# Which plugins would you like to load?
+eval "$(mcfly init zsh)"
+
+# starship
+eval "$(starship init zsh)"
+
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
@@ -19,11 +20,6 @@ plugins=(
 	sudo z git
 	)
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
 HIST_STAMPS="mm/dd/yyyy"
 
@@ -102,7 +98,7 @@ alias ls='exa -al --color=always --group-directories-first' # my preferred listi
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
 alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
-alias l.='exa -a | egrep "^\."'
+alias l.='exa -a | egrep "^\."' 			    # list dotfiles only
 
 ## mkdir create parents by default
 alias mkdir="mkdir -pv"
@@ -123,12 +119,13 @@ alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias con="config"
 alias conp="config push"
 alias conl="config pull"
+alias cond="config diff"
 
 alias ca="config add"
 alias cau="ca -u"
 alias cm="config commit"
 alias cst="config status"
-alias crm="config rm"
+alias crm="config rm --cached"
 
 ## applications
 alias r="ranger"
@@ -172,6 +169,13 @@ up() {
   fi
 }
 
+# swap two files
+swap() {
+  local TMPFILE=tmp.$$
+  sudo mv "$1" $TMPFILE
+  sudo mv "$2" "$1"
+  sudo mv $TMPFILE "$2"
+}
 ### ALIASES ###
 
 
