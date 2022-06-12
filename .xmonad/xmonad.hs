@@ -158,8 +158,9 @@ myStartupHook = do
   spawn "killall trayer" -- kill current trayer on each restart
   spawnOnce "nitrogen --restore &"
   spawnOnce "blueman-manager &"
-  spawnOnce "pavucontrol &"
   spawnOnce "lxappearance &"
+  spawnOnce "pavucontrol &"
+  spawnOnce "pnmixer &"
   spawnOnce "picom &"
   spawn
     ( "sleep 2 && conky -c $HOME/.config/conky/xmonad/"
@@ -167,7 +168,7 @@ myStartupHook = do
         ++ "-01.conkyrc"
     )
   spawn
-    ( "sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 "
+    ( "sleep 2 && trayer --edge top --align right --widthtype request --padding 7 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 "
         ++ colorTrayer
         ++ " --height 22"
     )
@@ -550,6 +551,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Custom applications
       ++ [ ((modm, xK_f), spawn "firefox"), -- Launch Firefox
            ((modm, xK_c), spawn "code"), -- Lauch vs code
+           ((modm, xK_e), spawn "emacs"), -- Lauch vs code
            ((modm, xK_i), spawn "gnome-control-center") -- Lauch gnome settings
          ]
       -- Hardware Control
