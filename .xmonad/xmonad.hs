@@ -157,6 +157,9 @@ myStartupHook = do
   spawn "killall conky" -- kill current conky on each restart
   spawn "killall trayer" -- kill current trayer on each restart
   spawnOnce "nitrogen --restore &"
+  spawnOnce "blueman-manager &"
+  spawnOnce "pavucontrol &"
+  spawnOnce "lxappearance &"
   spawnOnce "picom &"
   spawn
     ( "sleep 2 && conky -c $HOME/.config/conky/xmonad/"
@@ -472,7 +475,8 @@ myManageHook =
       title =? "Oracle VM VirtualBox Manager" --> doFloat,
       className =? "Pavucontrol" --> doShift (myWorkspaces !! 4),
       className =? "filelight" --> doShift (myWorkspaces !! 4),
-      className =? "Spotify" --> doShift (myWorkspaces !! 5)
+      className =? "blueman-manager" --> doShift (myWorkspaces !! 4),
+      className =? "spotify" --> doShift (myWorkspaces !! 5) -- this line don't work and I don't know why
       --  , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1)
       --  , className =? "Brave-browser" --> doShift (myWorkspaces !! 1)
       --  , className =? "VirtualBox Manager" --> doShift (myWorkspaces !! 4)

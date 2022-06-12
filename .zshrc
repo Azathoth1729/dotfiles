@@ -71,6 +71,9 @@ export GO111MODULE=on
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
+# rust path for nvim
+export RS_BIN="$HOME/.cargo/bin"
+
 ### EXPORT ###
 
 # conda
@@ -125,7 +128,7 @@ alias ca="config add"
 alias cau="ca -u"
 alias cm="config commit"
 alias cst="config status"
-alias crm="config rm --cached"
+alias crm="config rm -r --cached"
 
 ## applications
 alias r="ranger"

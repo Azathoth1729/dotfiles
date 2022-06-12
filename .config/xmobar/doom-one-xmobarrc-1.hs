@@ -31,7 +31,7 @@ Config
       [ -- Get kernel version (script found in .local/bin)
         Run Com ".local/bin/kernel" [] "kernel" 36000,
         -- Cpu usage in percent
-        Run Cpu ["-t", "<icon=cpu_20.xpm/> \xf133 cpu: (<total>%) ", "-H", "50", "--high", "red"] 20,
+        Run Cpu ["-t", "<icon=cpu_20.xpm/> cpu: (<total>%) ", "-H", "50", "--high", "red"] 20,
         -- Ram used number and percent
         Run Memory ["-t", "<icon=memory-icon_20.xpm/> mem: <used>M (<usedratio>%) "] 20,
         -- Uptime
@@ -69,7 +69,7 @@ Config
     sepChar = "%",
     alignSep = "}{",
     template =
-      "<action=`dm-run`><icon=haskell_20.xpm/></action>\
+      "<action=`rofi -show run`><icon=haskell_20.xpm/></action>\
       \<fc=#666666>|</fc> %UnsafeStdinReader%\
       \}{\
       \<box type=Bottom width=2 mb=2 color=#51afef>\
