@@ -7,7 +7,9 @@ ZSH_THEME="dracula"
 # use dircolors
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
-
+# mcfly
+eval "$(mcfly init zsh)
+"
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -27,14 +29,15 @@ HIST_STAMPS="mm/dd/yyyy"
 
 
 ### EXPORT ###
+export TERM="xterm-256color"                      # getting proper colors
+export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
+export EDITOR=vim
+export VISUAL=/usr/bin/vim
 
 # zsh and oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
-# editor
-export EDITOR=vim
-export VISUAL=/usr/bin/vim
 
 # custom path setting
 export WORKSHOP="$HOME/workshop"
@@ -50,7 +53,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # "vim" as manpager
 
 # "nvim" as manpager
-
 
 # pdf2pptx
 export PATH="$SCRIPTS/pdf2pptx:$PATH"
@@ -111,7 +113,12 @@ alias cp="cp -i"
 alias rm="rm -i"
 alias ln="ln -i"
 
-## config bare repo
+# switch between shells
+# I do not recommend switching default SHELL from bash.
+alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+
+## git bare repo alias for dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
 alias con="config"
 alias conp="config push"
