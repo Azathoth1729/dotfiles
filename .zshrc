@@ -27,8 +27,11 @@ HIST_STAMPS="mm/dd/yyyy"
 ### EXPORT ###
 export TERM="xterm-256color"                      # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
-export EDITOR=vim
-export VISUAL=/usr/bin/vim
+
+export EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
+#export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
+#export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 
 # zsh and oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
@@ -130,7 +133,9 @@ alias cm="config commit"
 alias cst="config status"
 alias crm="config rm -r --cached"
 
-## applications
+
+## applicationsi
+alias em="emacsclient -t -a ''"
 alias r="ranger"
 alias sf="screenfetch"
 alias reclash="sysctl restart clash" 		# restart clash
@@ -141,6 +146,8 @@ proxyon() {
     export http_proxy=http://127.0.0.1:9981
     export https_proxy=http://127.0.0.1:9981
     echo "proxy is now firing up."
+    echo http_proxy:$http_proxy
+    echo https_proxy:$https_proxy
 }
 
 proxyoff() {

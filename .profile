@@ -15,8 +15,10 @@ export QT4_IM_MODULE=fcitx5
 export QT_IM_MODULE=fcitx5
 export XMODIFIERS="@im=fcitx5"
 
-export EDITOR=/bin/vim
+export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
+export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 export TERMINFO=/usr/share/terminfo
+
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # if running bash

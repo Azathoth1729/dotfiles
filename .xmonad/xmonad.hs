@@ -474,7 +474,7 @@ myManageHook =
       className =? "Steam" --> doFloat,
       className =? "Gimp" --> doFloat,
       title =? "Oracle VM VirtualBox Manager" --> doFloat,
-      className =? "Pavucontrol" --> doShift (myWorkspaces !! 4),
+      className =? "pavucontrol" --> doShift (myWorkspaces !! 4),
       className =? "filelight" --> doShift (myWorkspaces !! 4),
       className =? "blueman-manager" --> doShift (myWorkspaces !! 4),
       className =? "spotify" --> doShift (myWorkspaces !! 5) -- this line don't work and I don't know why
@@ -614,9 +614,6 @@ main = do
   xmproc1 <-
     spawnPipe
       ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1.hs")
-  xmproc2 <-
-    spawnPipe
-      ("xmobar -x 2 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-2.hs")
   xmonad $
     ewmh
       def -- simple stuff
@@ -636,10 +633,9 @@ main = do
               namedScratchpadFilterOutWorkspacePP $
                 xmobarPP -- XMOBAR SETTINGS
                   { ppOutput = \x ->
-                      hPutStrLn xmproc0 x -- xmobar on monitor 1
-                        >> hPutStrLn xmproc1 x -- xmobar on monitor 2
-                        >> hPutStrLn xmproc2 x, -- xmobar on monitor 3
-                        -- Current workspace
+                      hPutStrLn xmproc0 x, -- xmobar on monitor 1
+                      -- >> hPutStrLn xmproc1 x, -- xmobar on monitor 2
+                      -- Current workspace
                     ppCurrent =
                       xmobarColor color06 ""
                         . wrap
