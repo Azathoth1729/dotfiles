@@ -134,15 +134,17 @@ alias cst="config status"
 alias crm="config rm -r --cached"
 
 
-## applicationsi
+## applications
 alias em="emacsclient -t -a ''"
 alias r="ranger"
 alias sf="screenfetch"
-alias reclash="sysctl restart clash" 		# restart clash
+
+alias clashst="sysctl status clash"
+alias clashr="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 
 ## proxy
-proxyon() {
+proxyon1() {
     export http_proxy=http://127.0.0.1:9981
     export https_proxy=http://127.0.0.1:9981
     echo "proxy is now firing up."
@@ -150,6 +152,13 @@ proxyon() {
     echo https_proxy:$https_proxy
 }
 
+proxyon2() {
+    export http_proxy=http://127.0.0.1:9999
+    export https_proxy=http://127.0.0.1:9999
+    echo "proxy is now firing up."
+    echo http_proxy:$http_proxy
+    echo https_proxy:$https_proxy
+}
 proxyoff() {
     unset http_proxy
     unset https_proxy

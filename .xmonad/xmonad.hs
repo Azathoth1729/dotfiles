@@ -20,7 +20,6 @@
 -- Utilities
 
 -- Color Themes
-import Colors.DoomOne
 import Data.Char (isSpace, toUpper)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, isJust)
@@ -106,9 +105,13 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
+
+
+import Colors.DoomOne
 ------------------------------------------------------
 -- Constant Variables
 ------------------------------------------------------
+
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
 
@@ -633,8 +636,8 @@ main = do
               namedScratchpadFilterOutWorkspacePP $
                 xmobarPP -- XMOBAR SETTINGS
                   { ppOutput = \x ->
-                      hPutStrLn xmproc0 x, -- xmobar on monitor 1
-                      -- >> hPutStrLn xmproc1 x, -- xmobar on monitor 2
+                      hPutStrLn xmproc0 x -- xmobar on monitor 1
+                      >> hPutStrLn xmproc1 x, -- xmobar on monitor 2
                       -- Current workspace
                     ppCurrent =
                       xmobarColor color06 ""
