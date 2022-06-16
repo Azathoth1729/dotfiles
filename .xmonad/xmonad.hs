@@ -165,6 +165,7 @@ myStartupHook = do
   spawnOnce "pavucontrol &"
   spawnOnce "pnmixer &"
   spawnOnce "picom &"
+  spawnOnce "cfw &"
   spawn
     ( "sleep 2 && conky -c $HOME/.config/conky/xmonad/"
         ++ colorScheme
@@ -616,7 +617,7 @@ main = do
       ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmproc1 <-
     spawnPipe
-      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1.hs")
+      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmonad $
     ewmh
       def -- simple stuff

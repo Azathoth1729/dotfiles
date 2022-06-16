@@ -159,6 +159,7 @@ proxyon2() {
     echo http_proxy:$http_proxy
     echo https_proxy:$https_proxy
 }
+
 proxyoff() {
     unset http_proxy
     unset https_proxy
@@ -166,7 +167,7 @@ proxyoff() {
     echo "proxy is now canceled."
 }
 
-export all_proxy="socks5://127.0.0.1:9981"
+# export all_proxy="socks5://127.0.0.1:9999"
 
 ## navigation
 up() {

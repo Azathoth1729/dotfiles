@@ -20,8 +20,6 @@
   "editor.detectIndentation": false,
   "editor.renderWhitespace": "all",
   "editor.suggestSelection": "first",
-  // windows
-  "window.zoomLevel": 1,
   // terminal
   "terminal.integrated.tabs.enabled": true,
   "terminal.integrated.inheritEnv": false,
