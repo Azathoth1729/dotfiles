@@ -3,6 +3,9 @@
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
+# locale
+# LC_CTYPE=zh_CN.UTF-8
+
 # use dircolors
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
@@ -135,7 +138,11 @@ alias crm="config rm -r --cached"
 
 
 ## applications
+# editor
 alias em="emacsclient -t -a ''"
+alias v="nvim"
+alias vd="neovide"
+
 alias r="ranger"
 alias sf="screenfetch"
 

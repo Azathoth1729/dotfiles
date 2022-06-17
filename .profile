@@ -20,7 +20,7 @@ export XMODIFIERS="@im=fcitx5"
 export TERMINFO=/usr/share/terminfo
 
 # locale
-export LC_ALL=C
+#export LC_ALL=C
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # if running bash
