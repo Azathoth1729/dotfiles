@@ -4,10 +4,13 @@
 [init]
 	defaultBranch = main
 [credential]
-	helper = store
+    helper = store
+    
 #[http "https://github.com"]
 #	proxy = http://127.0.0.1:9981
 #[https "https://github.com"]
 #	proxy = https://127.0.0.1:9981
+
 [core]
-	editor = nvim
+    editor = nvim
+    pager = bat 

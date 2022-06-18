@@ -51,3 +51,6 @@ export PATH=$PATH:~/.local/bin
 
 # doom emacs
 export PATH=$PATH:$HOME/.emacs.d/doom/bin
+
+# swap ESC and CAPS_LOCK
+setxkbmap -option caps:escape &

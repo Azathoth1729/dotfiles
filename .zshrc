@@ -45,12 +45,16 @@ source $ZSH/oh-my-zsh.sh
 export WORKSHOP="$HOME/workshop"
 export SCRIPTS="$WORKSHOP/scripts"
 
+
+#export PAGER="sh -c 'col -bx | bat -l man -p'"
+
 export TERMINFO=/usr/share/terminfo
 
 ## set manpager
 
 # "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 
 # "vim" as manpager
 
@@ -82,14 +86,6 @@ export RS_BIN="$HOME/.cargo/bin"
 
 ### EXPORT ###
 
-# conda
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-
-# ghcup
-[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
-
-# opam configuration
-[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
 ### ALIASES ###
 
@@ -150,31 +146,45 @@ alias clashst="sysctl status clash"
 alias clashr="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 
+### ALIASES ###
+
+
+
+### UTIL FUNCS ###
+
 ## proxy
-proxyon1() {
-    export http_proxy=http://127.0.0.1:9981
-    export https_proxy=http://127.0.0.1:9981
+with-proxy() {
+    export http_proxy=http://127.0.0.1:$1
+    export https_proxy=http://127.0.0.1:$1
+    export all_proxy=socks5://127.0.0.1:$1
     echo "proxy is now firing up."
-    echo http_proxy:$http_proxy
+    echo http_proxy:$http_proxy 
     echo https_proxy:$https_proxy
+    echo all_proxy:$all_proxy
 }
 
-proxyon2() {
+onproxy() {
     export http_proxy=http://127.0.0.1:9999
     export https_proxy=http://127.0.0.1:9999
+    export all_proxy=socks5://127.0.0.1:9999
     echo "proxy is now firing up."
     echo http_proxy:$http_proxy
     echo https_proxy:$https_proxy
+    echo all_proxy:$all_proxy
 }
 
-proxyoff() {
+offproxy() {
     unset http_proxy
     unset https_proxy
     unset all_proxy
-    echo "proxy is now canceled."
+    echo "uset http_proxy https_proxy all_proxy"
 }
 
-# export all_proxy="socks5://127.0.0.1:9999"
+show-proxy() {
+    echo http_proxy:$http_proxy
+    echo https_proxy:$https_proxy
+    echo all_proxy:$all_proxy
+}
 
 ## navigation
 up() {
@@ -196,14 +206,38 @@ up() {
   fi
 }
 
-# swap two files
+## swap two files
 swap() {
   local TMPFILE=tmp.$$
   sudo mv "$1" $TMPFILE
   sudo mv "$2" "$1"
   sudo mv $TMPFILE "$2"
 }
-### ALIASES ###
+
+## quickly edit zsh config uisng $EDITOR
+econ() {
+    $EDITOR $HOME/.zshrc
+}
+
+## git diff using bat
+
+batdiff() {
+    git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
+
+### UTIL FUNCS ###
+
+
+
+
+# conda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# ghcup
+[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
+
+# opam configuration
+[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
 
 
