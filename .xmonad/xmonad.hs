@@ -1,33 +1,27 @@
 ------------------------------------------------------
 -- IMPORTS
 ------------------------------------------------------
--- Base
 
--- Actions
+
 
 -- Data
-
--- Hooks
-
--- for some fullscreen events, also for xcomposite in obs.
-
--- Layouts
-
--- Layouts modifiers
-
--- XMonad Base
-
--- Utilities
-
--- Color Themes
 import Data.Char (isSpace, toUpper)
 import qualified Data.Map as M
 import Data.Maybe (fromJust, isJust)
 import Data.Monoid
+
+
+-- Base
 import Graphics.X11.ExtraTypes.XF86
 import System.Exit (exitSuccess)
 import System.IO (hPutStrLn)
+
+
+-- XMonad Base
 import XMonad
+
+
+-- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS
   ( Direction1D (..),
@@ -43,6 +37,9 @@ import XMonad.Actions.RotSlaves (rotAllDown, rotSlavesDown)
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (killAll, sinkAll)
+
+
+-- Hooks
 import XMonad.Hooks.DynamicLog
   ( PP (..),
     dynamicLogWithPP,
@@ -66,6 +63,9 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+
+
+-- Layouts
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid (Grid))
 import XMonad.Layout.LayoutModifier
@@ -89,6 +89,9 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
+
+
+-- Layouts modifiers
 import qualified XMonad.Layout.ToggleLayouts as T
   ( ToggleLayout (Toggle),
     toggleLayouts,
@@ -99,6 +102,9 @@ import XMonad.Layout.WindowArranger
   )
 import XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
+
+
+-- Utilities
 import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -106,7 +112,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
 
-
+-- Color Themes
 import Colors.DoomOne
 ------------------------------------------------------
 -- Constant Variables
@@ -159,13 +165,17 @@ myStartupHook :: X ()
 myStartupHook = do
   spawn "killall conky" -- kill current conky on each restart
   spawn "killall trayer" -- kill current trayer on each restart
-  spawnOnce "nitrogen --restore &"
-  spawnOnce "blueman-manager &"
-  spawnOnce "lxappearance &"
-  spawnOnce "pavucontrol &"
-  spawnOnce "pnmixer &"
+  spawnOnce "nm-applet &"
+  spawnOnce "volumeicon &"
+  spawnOnce "blueman-applet &"
   spawnOnce "picom &"
+
   spawnOnce "cfw &"
+  spawnOnce "lxappearance &"
+  spawnOnce "nitrogen --restore &"
+
+  spawnOnce "/usr/bin/emacs --daemon &"
+
   spawn
     ( "sleep 2 && conky -c $HOME/.config/conky/xmonad/"
         ++ colorScheme
@@ -482,11 +492,6 @@ myManageHook =
       className =? "filelight" --> doShift (myWorkspaces !! 4),
       className =? "blueman-manager" --> doShift (myWorkspaces !! 4),
       className =? "spotify" --> doShift (myWorkspaces !! 5) -- this line don't work and I don't know why
-      --  , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 1)
-      --  , className =? "Brave-browser" --> doShift (myWorkspaces !! 1)
-      --  , className =? "VirtualBox Manager" --> doShift (myWorkspaces !! 4)
-      --  , className =? "mpv" --> doShift (myWorkspaces !! 7)
-      --  , className =? "Gimp" --> doShift (myWorkspaces !! 8)
     ]
     <+> namedScratchpadManageHook myScratchPads
 
@@ -550,6 +555,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Run xmessage with a summary of the default keybindings (useful for beginners)
       ( (modm .|. shiftMask, xK_slash),
         spawn ("echo \"" ++ help ++ "\" | xmessage -fn '-*-*-*-r-*--35-0-0-0-p-*-*-*' -file -")
+        --spawn ("echo \"" ++ help ++ "\" | nvim -")
       )
     ]
       -- Custom applications
@@ -560,10 +566,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
          ]
       -- Hardware Control
       ++ [ ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +5%"), -- brightness up
-           ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-"), -- brightness down
-           ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"), -- Audio Control
-           ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"), -- Audio Increase
-           ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%") -- Audio decrease
+           ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-") -- brightness down
          ]
       ++
       --
@@ -617,7 +620,7 @@ main = do
       ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmproc1 <-
     spawnPipe
-      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
+      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1.hs")
   xmonad $
     ewmh
       def -- simple stuff
