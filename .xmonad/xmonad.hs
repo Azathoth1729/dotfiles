@@ -577,15 +577,76 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9],
           (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
       ]
-      ++
+      -- ++
       --
       -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
       -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
       --
-      [ ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0 ..],
-          (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
-      ]
+      --[ ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+      --  | (key, sc) <- zip [xK_w, xK_e, xK_r] [0 ..],
+      --    (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+      --]
+
+myKeys2 :: [(String, X ())]
+myKeys2  =
+    -- launch a terminal
+    [ ("M-<Return>", spawn (myTerminal)),
+
+      ("M-p", spawn "rofi -show drun"), -- rofi
+
+      ("M-S-c", kill),      -- Kill the currently focused client
+      ("M-S-a", killAll),   -- Kill all windows on current workspace
+      -- Rotate through the available layout algorithms
+      ("M-<Space>", sendMessage NextLayout),
+      --  Reset the layouts on the current workspace to default
+      --("M-S-<Space>", setLayout $ XMonad.layoutHook conf),
+      -- Resize viewed windows to the correct size
+      ("M-n", refresh),
+      -- Move focus to the next window
+      ("M-<Tab>", windows W.focusDown),
+      -- Move focus to the next window
+      ("M-j", windows W.focusDown),
+      -- Move focus to the previous window
+      ("M-k", windows W.focusUp),
+      -- Move focus to the master window
+      ("M-m", windows W.focusMaster),
+      -- Swap the focused window and the master window
+      ("M-S-<Return>", windows W.swapMaster),
+      -- Swap the focused window with the next window
+      ("M-S-j", windows W.swapDown),
+      -- Swap the focused window with the previous window
+      ("M-S-k", windows W.swapUp),
+      -- Shrink the master area
+      ("M-h", sendMessage Shrink),
+      -- Expand the master area
+      ("M-l", sendMessage Expand),
+      -- Push window back into tiling
+      ("M-t", withFocused $ windows . W.sink),
+      -- Increment the number of windows in the master area
+      ("M-S-<Up>", sendMessage (IncMasterN 1)),
+      -- Deincrement the number of windows in the master area
+      ("M-S-<Down>", sendMessage (IncMasterN (-1))),
+      -- Toggle the status bar gap
+      -- Use this binding with avoidStruts from Hooks.ManageDocks.
+      -- See also the statusBar function from Hooks.DynamicLog.
+      ("M-b", sendMessage ToggleStruts),
+      -- Quit xmonad
+      ("M-S-q", io exitSuccess),
+      -- Restart xmonad
+      ("M-q", spawn "  killall xmobar; xmonad --recompile; xmonad --restart"),
+      -- Run xmessage with a summary of the default keybindings (useful for beginners)
+      ( "M-S-/", spawn ("echo \"" ++ help ++ "\" | xmessage -fn '-*-*-*-r-*--35-0-0-0-p-*-*-*' -file -")),
+
+      -- Custom applications
+      ("M-f", spawn "firefox"), -- Launch Firefox
+      ("M-c", spawn "code"), -- Lauch vs code
+      ("M-e e", spawn "emacs"), -- Lauch vs code
+      ("M-i", spawn "gnome-control-center"), -- Lauch gnome settings
+
+      -- Hardware Control
+     ("<XF86MonBrightnessUp>", spawn "brightnessctl set +5%"), -- brightness up
+     ("<XF86MonBrightnessDown>", spawn "brightnessctl set 5%-") -- brightness down
+    ]
 
 -- Mouse bindings: default actions bound to mouse events
 myMouseBindings XConfig {XMonad.modMask = modm} =
@@ -620,7 +681,7 @@ main = do
       ("xmobar -x 0 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmproc1 <-
     spawnPipe
-      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-1.hs")
+      ("xmobar -x 1 $HOME/.config/xmobar/" ++ colorScheme ++ "-xmobarrc-0.hs")
   xmonad $
     ewmh
       def -- simple stuff
