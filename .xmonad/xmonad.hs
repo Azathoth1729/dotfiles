@@ -502,14 +502,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
   M.fromList $
     -- launch a terminal
     [ ((modm, xK_Return), spawn $ XMonad.terminal conf),
-      -- launch rofi as combine window and run mode
-      --  , ((modm, xK_p), spawn "rofi -show combi")
-
       -- launch rofi as run mode
       ((modm, xK_p), spawn "rofi -show drun"),
-      -- launch gmrun
-      --  , ((modm .|. shiftMask, xK_p), spawn "gmrun")
-
       -- close focused window
       ((modm .|. shiftMask, xK_c), kill),
       -- Rotate through the available layout algorithms
@@ -554,25 +548,23 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ),
       -- Run xmessage with a summary of the default keybindings (useful for beginners)
       ( (modm .|. shiftMask, xK_slash),
-        spawn ("echo \"" ++ help ++ "\" | xmessage -fn '-*-*-*-r-*--35-0-0-0-p-*-*-*' -file -")
+        spawn ("echo \"" ++ help ++ "\" | xmessage -file -")
         --spawn ("echo \"" ++ help ++ "\" | nvim -")
-      )
-    ]
+      ),
+    
       -- Custom applications
-      ++ [ ((modm, xK_f), spawn "firefox"), -- Launch Firefox
-           ((modm, xK_c), spawn "code"), -- Lauch vs code
-           ((modm, xK_e), spawn "emacs"), -- Lauch vs code
-           ((modm, xK_i), spawn "gnome-control-center") -- Lauch gnome settings
-         ]
+      ((modm, xK_f), spawn "firefox"), -- Launch Firefox
+      ((modm, xK_c), spawn "code"), -- Lauch vs code
+      ((modm, xK_e), spawn "emacs"), -- Lauch vs code
+      ((modm, xK_i), spawn "gnome-control-center"), -- Lauch gnome settings
+      --((modm, xK_l), spawn "slock"), -- Lauch gnome settings
       -- Hardware Control
-      ++ [ ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +5%"), -- brightness up
-           ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-") -- brightness down
-         ]
+      ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +5%"), -- brightness up
+      ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-") -- brightness down
+      ]
       ++
-      --
       -- mod-[1..9], Switch to workspace N
       -- mod-shift-[1..9], Move client to workspace N
-      --
       [ ((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9],
           (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]

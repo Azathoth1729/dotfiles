@@ -45,12 +45,8 @@ fi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# local bin
-export PATH=$PATH:~/.local/bin
-. "$HOME/.cargo/env"
+# cargo
+source "$HOME/.cargo/env"
 
 # doom emacs
 export PATH=$PATH:$HOME/.emacs.d/doom/bin
-
-# swap ESC and CAPS_LOCK
-setxkbmap -option caps:escape &

@@ -1,25 +1,27 @@
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-
-# locale
-# LC_CTYPE=zh_CN.UTF-8
-
 # use dircolors
 eval `dircolors ~/.dir_colors/dircolors_nord`
 
 # mcfly
-eval "$(mcfly init zsh)"
+if [ -x "$(command -v mcfly)" ]; then
+    eval "$(mcfly init zsh)"
+fi
 
 # starship
-eval "$(starship init zsh)"
+if [ -x "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+fi
+
+
+# swap ESC and CAPS_LOCK
+#setxkbmap -option caps:escape &
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
-	zsh-autosuggestions zsh-syntax-highlighting
-	conda-zsh-completion extract
+	zsh-autosuggestions 
+    zsh-syntax-highlighting
+	conda-zsh-completion 
+    extract
 	sudo z git
 	)
 
@@ -54,7 +56,6 @@ export TERMINFO=/usr/share/terminfo
 
 # "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
 
 # "vim" as manpager
 
@@ -146,6 +147,7 @@ alias clashst="sysctl status clash"
 alias clashr="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 
+
 ### ALIASES ###
 
 
@@ -153,7 +155,7 @@ alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 ### UTIL FUNCS ###
 
 ## proxy
-with-proxy() {
+withproxy() {
     export http_proxy=http://127.0.0.1:$1
     export https_proxy=http://127.0.0.1:$1
     export all_proxy=socks5://127.0.0.1:$1
@@ -180,7 +182,7 @@ offproxy() {
     echo "uset http_proxy https_proxy all_proxy"
 }
 
-show-proxy() {
+showproxy() {
     echo http_proxy:$http_proxy
     echo https_proxy:$https_proxy
     echo all_proxy:$all_proxy
@@ -214,6 +216,22 @@ swap() {
   sudo mv $TMPFILE "$2"
 }
 
+## scp && ssh
+
+# scp locally
+scp-local() {
+    local hostname=$1  # in host name ssh config
+    local src=$2 
+    local tar=$3
+    echo moveing $src to $hostname:$tar...
+    scp -rF $HOME/.ssh/config $src $hostname:$tar
+}
+
+# show ssh config
+scp-config(){
+    bat $HOME/.ssh/config
+}
+
 ## quickly edit zsh config uisng $EDITOR
 econ() {
     $EDITOR $HOME/.zshrc
@@ -228,8 +246,6 @@ batdiff() {
 ### UTIL FUNCS ###
 
 
-
-
 # conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
@@ -240,9 +256,13 @@ batdiff() {
 [[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
 
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# locale
+# LC_CTYPE=zh_CN.UTF-8
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
