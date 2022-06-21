@@ -1,14 +1,22 @@
 # use dircolors
-eval `dircolors ~/.dir_colors/dircolors_nord`
+if [ -f $HOME/.dir_colors/dircolors_nord ]; then
+eval `dircolors $HOME/.dir_colors/dircolors_nord`
+fi
 
 # mcfly
 if [ -x "$(command -v mcfly)" ]; then
     eval "$(mcfly init zsh)"
 fi
 
-# starship
+# prompt
 if [ -x "$(command -v starship)" ]; then
     eval "$(starship init zsh)"
+else
+    # Set name of the theme to load --- if set to "random", it will
+    # load a random theme each time oh-my-zsh is loaded, in which case,
+    # to know which specific one was loaded, run: echo $RANDOM_THEME
+    # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+    ZSH_THEME="robbyrussell"
 fi
 
 
@@ -21,8 +29,8 @@ plugins=(
 	zsh-autosuggestions 
     zsh-syntax-highlighting
 	conda-zsh-completion 
-    extract
-	sudo z git
+    extract z
+	sudo git
 	)
 
 # see 'man strftime' for details.
@@ -33,8 +41,16 @@ HIST_STAMPS="mm/dd/yyyy"
 export TERM="xterm-256color"                      # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
 
-export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
+
+if [ -x "$(command -v nvim)" ]; then
+    export EDITOR=/usr/bin/nvim
+    export VISUAL=/usr/bin/nvim
+else
+    export EDITOR=/usr/bin/vim
+    export VISUAL=/usr/bin/vim
+fi
+
+
 #export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
 #export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 
@@ -55,7 +71,11 @@ export TERMINFO=/usr/share/terminfo
 ## set manpager
 
 # "bat" as manpager
+
+
+if [ -x "$(command -v bat)" ]; then
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 # "vim" as manpager
 
@@ -100,11 +120,15 @@ alias pf="poweroff"
 alias sysctl="sudo systemctl"
 
 ## changing "ls" to "exa"
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first' # tree listing
-alias l.='exa -a | egrep "^\."' 			    # list dotfiles only
+
+
+if [ -x "$(command -v exa)" ]; then
+    alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+    alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+    alias ll='exa -l --color=always --group-directories-first'  # long format
+    alias lt='exa -aT --color=always --group-directories-first' # tree listing
+    alias l.='exa -a | egrep "^\."' 			    # list dotfiles only
+fi 
 
 ## mkdir create parents by default
 alias mkdir="mkdir -pv"
@@ -120,28 +144,44 @@ alias ln="ln -i"
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
 
-## git bare repo alias for dotfiles
-alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
-alias con="config"
-alias conp="config push"
-alias conl="config pull"
-alias cond="config diff"
 
-alias ca="config add"
-alias cau="ca -u"
-alias cm="config commit"
-alias cst="config status"
-alias crm="config rm -r --cached"
+## git bare repo alias for dotfiles
+if [ -d "$HOME/dotfiles" ]; then
+    alias config="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+    alias con="config"
+    alias conp="config push"
+    alias conl="config pull"
+    alias cond="config diff"
+    alias ca="config add"
+    alias cau="ca -u"
+    alias cm="config commit"
+    alias cst="config status"
+    alias crm="config rm -r --cached"
+fi
 
 
 ## applications
-# editor
-alias em="emacsclient -t -a ''"
-alias v="nvim"
-alias vd="neovide"
 
-alias r="ranger"
-alias sf="screenfetch"
+# editor
+
+alias em="emacsclient -t -a ''"
+
+if [ -x "$(command -v nvim)" ]; then
+    alias v="nvim"
+fi
+
+if [ -x "$(command -v neovide)" ]; then
+    alias vd="neovide"
+fi
+
+# software
+if [ -x "$(command -v ranger)" ]; then
+    alias r="ranger"
+fi
+
+if [ -x "$(command -v screenfetch)" ]; then
+    alias sf="screenfetch"
+fi
 
 alias clashst="sysctl status clash"
 alias clashr="sysctl restart clash" 		# restart clash
@@ -237,11 +277,6 @@ econ() {
     $EDITOR $HOME/.zshrc
 }
 
-## git diff using bat
-
-batdiff() {
-    git diff --name-only --relative --diff-filter=d | xargs bat --diff
-}
 
 ### UTIL FUNCS ###
 
@@ -255,11 +290,6 @@ batdiff() {
 # opam configuration
 [[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 # locale
 # LC_CTYPE=zh_CN.UTF-8
