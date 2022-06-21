@@ -49,4 +49,4 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 source "$HOME/.cargo/env"
 
 # doom emacs
-export PATH=$PATH:$HOME/.emacs.d/doom/bin
+#export PATH=$PATH:$HOME/.emacs.d/doom/bin

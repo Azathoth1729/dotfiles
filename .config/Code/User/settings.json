@@ -32,7 +32,7 @@
   },
 
   // proxy
-  "http.proxy": "http://127.0.0.1:9981",
+  "http.proxy": "http://127.0.0.1:9999",
 
   // latex
   "latex-workshop.view.pdf.viewer": "tab",
@@ -160,8 +160,9 @@
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "window.zoomLevel": 1,
   "window.dialogStyle": "custom",
   "window.menuBarVisibility": "toggle",
-  "window.titleBarStyle": "custom"
+  "window.titleBarStyle": "custom",
+  "window.zoomLevel": 1,
+  "terminal.integrated.defaultProfile.linux": "zsh"
 }
