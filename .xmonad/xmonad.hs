@@ -3,7 +3,6 @@
 ------------------------------------------------------
 
 
-
 -- Data
 import Data.Char (isSpace, toUpper)
 import qualified Data.Map as M
@@ -37,6 +36,7 @@ import XMonad.Actions.RotSlaves (rotAllDown, rotSlavesDown)
 import qualified XMonad.Actions.Search as S
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (killAll, sinkAll)
+import XMonad.Actions.CycleWS
 
 
 -- Hooks
@@ -119,7 +119,7 @@ import Colors.DoomOne
 ------------------------------------------------------
 
 myFont :: String
-myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=11:antialias=true:hinting=true"
 
 myModMask :: KeyMask
 myModMask = mod4Mask -- Sets modkey to super/windows key
@@ -171,7 +171,6 @@ myStartupHook = do
   spawnOnce "picom &"
 
   spawnOnce "cfw &"
-  spawnOnce "lxappearance &"
   spawnOnce "nitrogen --restore &"
 
   spawnOnce "/usr/bin/emacs --daemon &"
@@ -504,14 +503,15 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
     [ ((modm, xK_Return), spawn $ XMonad.terminal conf),
       -- launch rofi as run mode
       ((modm, xK_p), spawn "rofi -show drun"),
-      -- close focused window
-      ((modm .|. shiftMask, xK_c), kill),
       -- Rotate through the available layout algorithms
       ((modm, xK_space), sendMessage NextLayout),
-      --  Reset the layouts on the current workspace to default
+      -- Reset the layouts on the current workspace to default
       ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf),
       -- Resize viewed windows to the correct size
       ((modm, xK_n), refresh),
+
+      -- close focused window
+      ((modm .|. shiftMask, xK_c), kill),
       -- Move focus to the next window
       ((modm, xK_Tab), windows W.focusDown),
       -- Move focus to the next window
@@ -526,6 +526,24 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((modm .|. shiftMask, xK_j), windows W.swapDown),
       -- Swap the focused window with the previous window
       ((modm .|. shiftMask, xK_k), windows W.swapUp),
+
+      -- Navigate to next workspace
+      ((modm, xK_Right),  nextWS),
+      -- Navigate to previous workspace
+      ((modm, xK_Left),  prevWS),
+      -- Send current windows to next workspace and follow the moving
+      ((modm .|. shiftMask, xK_Right), shiftToNext >> nextWS),
+      -- Send current windows to prev workspace and follow the moving
+      ((modm .|. shiftMask, xK_Left), shiftToPrev >> prevWS),
+      ((modm, xK_Down), nextScreen),
+      ((modm, xK_Up),  prevScreen),
+      ((modm .|. shiftMask, xK_Down), shiftNextScreen),
+      ((modm .|. shiftMask, xK_Up),  shiftPrevScreen),
+      -- Toggle most recently visited workspace
+      ((modm, xK_z), toggleWS),
+      -- find a free workspace
+      ((modm, xK_f), moveTo Next EmptyWS),
+
       -- Shrink the master area
       ((modm, xK_h), sendMessage Shrink),
       -- Expand the master area
@@ -536,16 +554,19 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((modm, xK_comma), sendMessage (IncMasterN 1)),
       -- Deincrement the number of windows in the master area
       ((modm, xK_period), sendMessage (IncMasterN (-1))),
+
       -- Toggle the status bar gap
       -- Use this binding with avoidStruts from Hooks.ManageDocks.
       -- See also the statusBar function from Hooks.DynamicLog.
-      ((modm, xK_b), sendMessage ToggleStruts),
+      --((modm, xK_b), sendMessage ToggleStruts),
+
       -- Quit xmonad
       ((modm .|. shiftMask, xK_q), io exitSuccess),
       -- Restart xmonad
       ( (modm, xK_q),
         spawn "  killall xmobar; xmonad --recompile; xmonad --restart"
       ),
+
       -- Run xmessage with a summary of the default keybindings (useful for beginners)
       ( (modm .|. shiftMask, xK_slash),
         spawn ("echo \"" ++ help ++ "\" | xmessage -file -")
@@ -553,11 +574,12 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ),
     
       -- Custom applications
-      ((modm, xK_f), spawn "firefox"), -- Launch Firefox
+      ((modm, xK_b), spawn myBrowser), -- Launch Browser(Firefox)
       ((modm, xK_c), spawn "code"), -- Lauch vs code
       ((modm, xK_e), spawn "emacs"), -- Lauch vs code
       ((modm, xK_i), spawn "gnome-control-center"), -- Lauch gnome settings
       --((modm, xK_l), spawn "slock"), -- Lauch gnome settings
+
       -- Hardware Control
       ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +5%"), -- brightness up
       ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-") -- brightness down
@@ -570,7 +592,6 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
           (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
       ]
       -- ++
-      --
       -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
       -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
       --
