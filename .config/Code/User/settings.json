@@ -163,6 +163,11 @@
   "window.dialogStyle": "custom",
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "custom",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "[shellscript]": {
+    "editor.defaultFormatter": "shakram02.bash-beautify"
+  },
   "window.zoomLevel": 1,
-  "terminal.integrated.defaultProfile.linux": "zsh"
+
+  "keyboard.dispatch": "keyCode"
 }

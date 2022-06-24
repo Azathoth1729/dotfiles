@@ -6,7 +6,7 @@ add_newline = true
 
 # Make prompt a single line instead of two lines
 [line_break]
-disabled = true
+disabled = false
 
 # Replace the "❯" symbol in the prompt with new one
 [character] # The name of the module we are configuring is "character"

@@ -1,25 +1,3 @@
-# use dircolors
-if [ -f $HOME/.dir_colors/dircolors_nord ]; then
-eval `dircolors $HOME/.dir_colors/dircolors_nord`
-fi
-
-# mcfly
-if [ -x "$(command -v mcfly)" ]; then
-    eval "$(mcfly init zsh)"
-fi
-
-# prompt
-if [ -x "$(command -v starship)" ]; then
-    eval "$(starship init zsh)"
-else
-    # Set name of the theme to load --- if set to "random", it will
-    # load a random theme each time oh-my-zsh is loaded, in which case,
-    # to know which specific one was loaded, run: echo $RANDOM_THEME
-    # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-    ZSH_THEME="robbyrussell"
-fi
-
-
 # swap ESC and CAPS_LOCK
 #setxkbmap -option caps:escape &
 
@@ -72,7 +50,6 @@ export TERMINFO=/usr/share/terminfo
 
 # "bat" as manpager
 
-
 if [ -x "$(command -v bat)" ]; then
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
@@ -95,9 +72,11 @@ export SPARK_HOME=/opt/spark
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 # go
+
+if [ -x "$(command -v bat)" ]; then
 export GOPATH=$(go env GOPATH) # Set GOPATH
 export GO111MODULE=on
-
+fi
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -263,7 +242,7 @@ scp-local() {
     local hostname=$1  # in host name ssh config
     local src=$2 
     local tar=$3
-    echo moveing $src to $hostname:$tar...
+    echo moving $src to $hostname:$tar...
     scp -rF $HOME/.ssh/config $src $hostname:$tar
 }
 
@@ -280,6 +259,27 @@ econ() {
 
 ### UTIL FUNCS ###
 
+
+# use dircolors
+if [ -f $HOME/.dir_colors/dircolors_nord ]; then
+eval `dircolors $HOME/.dir_colors/dircolors_nord`
+fi
+
+# mcfly
+if [ -x "$(command -v mcfly)" ]; then
+    eval "$(mcfly init zsh)"
+fi
+
+# prompt
+if [ -x "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+else
+    # Set name of the theme to load --- if set to "random", it will
+    # load a random theme each time oh-my-zsh is loaded, in which case,
+    # to know which specific one was loaded, run: echo $RANDOM_THEME
+    # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+    ZSH_THEME="robbyrussell"
+fi
 
 # conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh

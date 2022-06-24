@@ -441,7 +441,7 @@ myLayoutHook =
 --
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces =
-  ["dev", "www", "sh", "misc", "sys", "mus", "chat", "video", "game"]
+  ["dev", "www", "sh", "misc", "sys", "mus", "chat", "vid", "game"]
 
 myWorkspaceIndices = M.fromList $ zip myWorkspaces [1 ..] -- (,) == \x y -> (x,y)
 
