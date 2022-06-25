@@ -542,7 +542,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Toggle most recently visited workspace
       ((modm, xK_z), toggleWS),
       -- find a free workspace
-      ((modm, xK_f), moveTo Next EmptyWS),
+      ((modm, xK_d), moveTo Next EmptyWS),
 
       -- Shrink the master area
       ((modm, xK_h), sendMessage Shrink),
@@ -570,11 +570,10 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Run xmessage with a summary of the default keybindings (useful for beginners)
       ( (modm .|. shiftMask, xK_slash),
         spawn ("echo \"" ++ help ++ "\" | xmessage -file -")
-        --spawn ("echo \"" ++ help ++ "\" | nvim -")
       ),
     
       -- Custom applications
-      ((modm, xK_b), spawn myBrowser), -- Launch Browser(Firefox)
+      ((modm, xK_f), spawn myBrowser), -- Launch Browser(Firefox)
       ((modm, xK_c), spawn "code"), -- Lauch vs code
       ((modm, xK_e), spawn "emacs"), -- Lauch vs code
       ((modm, xK_i), spawn "gnome-control-center"), -- Lauch gnome settings

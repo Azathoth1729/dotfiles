@@ -7,13 +7,9 @@ plugins=(
 	zsh-autosuggestions 
     zsh-syntax-highlighting
 	conda-zsh-completion 
-    extract z
+    extract
 	sudo git
 	)
-
-# see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
-
 
 ### EXPORT ###
 export TERM="xterm-256color"                      # getting proper colors
@@ -49,13 +45,11 @@ export TERMINFO=/usr/share/terminfo
 ## set manpager
 
 # "bat" as manpager
-
 if [ -x "$(command -v bat)" ]; then
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 # "vim" as manpager
-
 # "nvim" as manpager
 
 # pdf2pptx
@@ -72,11 +66,11 @@ export SPARK_HOME=/opt/spark
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 # go
-
-if [ -x "$(command -v bat)" ]; then
+if [ -x "$(command -v go)" ]; then
 export GOPATH=$(go env GOPATH) # Set GOPATH
 export GO111MODULE=on
 fi
+
 # volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -99,8 +93,6 @@ alias pf="poweroff"
 alias sysctl="sudo systemctl"
 
 ## changing "ls" to "exa"
-
-
 if [ -x "$(command -v exa)" ]; then
     alias ls='exa -al --color=always --group-directories-first' # my preferred listing
     alias la='exa -a --color=always --group-directories-first'  # all files and dirs
@@ -165,7 +157,6 @@ fi
 alias clashst="sysctl status clash"
 alias clashr="sysctl restart clash" 		# restart clash
 alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
-
 
 ### ALIASES ###
 
@@ -260,6 +251,8 @@ econ() {
 ### UTIL FUNCS ###
 
 
+
+### Eval and Source ###
 # use dircolors
 if [ -f $HOME/.dir_colors/dircolors_nord ]; then
 eval `dircolors $HOME/.dir_colors/dircolors_nord`
@@ -281,6 +274,10 @@ else
     ZSH_THEME="robbyrussell"
 fi
 
+if [ -x "$(command -v zoxide)" ]; then
+    eval "$(zoxide init zsh)"
+fi
+
 # conda
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
@@ -290,6 +287,7 @@ fi
 # opam configuration
 [[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
 
+### Eval and Source ###
 
 # locale
 # LC_CTYPE=zh_CN.UTF-8
