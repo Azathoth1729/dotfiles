@@ -12,7 +12,7 @@
 Config
   { font = "xft:Source Code Pro:weight=bold:pixelsize=15:antialias=true:hinting=true",
     additionalFonts =
-      [ "xft:Source Code Pro:pixelsize=11:antialias=true:hinting=true",
+      [ "xft:Source Code Pro:pixelsize=13:antialias=true:hinting=true",
         "xft:Source Code Pro:pixelsize=15",
         "xft:Source Code Pro:pixelsize=15"
       ],
@@ -45,7 +45,7 @@ Config
           BatteryP
           ["BAT1"]
           [ "-t",
-            "Charging <acstatus>",
+            " <acstatus> ",
             "-L",
             "20",
             "-H",

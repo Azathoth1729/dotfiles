@@ -13,6 +13,10 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
+  // windows
+  "window.dialogStyle": "custom",
+  "window.menuBarVisibility": "toggle",
+  "window.titleBarStyle": "custom",
   // editor
   "editor.tabSize": 2,
   "editor.fontSize": 15,
@@ -30,6 +34,8 @@
     "*.ipynb": "jupyter-notebook",
     "*.md": "vscode.markdown.preview.editor"
   },
+  // keyboard
+  "keyboard.dispatch": "keyCode",
 
   // proxy
   "http.proxy": "http://127.0.0.1:9999",
@@ -57,7 +63,7 @@
       "tools": ["latexmk"]
     }
   ],
-  
+
   // code-runner
   "code-runner.executorMap": {
     "javascript": "~/.volta/bin/node",
@@ -157,17 +163,12 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "window.dialogStyle": "custom",
-  "window.menuBarVisibility": "toggle",
-  "window.titleBarStyle": "custom",
-  "terminal.integrated.defaultProfile.linux": "zsh",
   "[shellscript]": {
     "editor.defaultFormatter": "shakram02.bash-beautify"
   },
-  "window.zoomLevel": 1,
 
-  "keyboard.dispatch": "keyCode"
+  // volatile settings
+  "terminal.integrated.defaultProfile.linux": "zsh",
+
+  "window.zoomLevel": 1
 }

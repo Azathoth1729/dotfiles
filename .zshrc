@@ -125,7 +125,7 @@ if [ -d "$HOME/dotfiles" ]; then
     alias cond="config diff"
     alias ca="config add"
     alias cau="ca -u"
-    alias cm="config commit"
+    alias cm="config commit -v"
     alias cst="config status"
     alias crm="config rm -r --cached"
 fi

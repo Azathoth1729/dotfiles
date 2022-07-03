@@ -103,6 +103,8 @@ import XMonad.Layout.WindowArranger
 import XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 
+-- Gnome
+import XMonad.Config.Gnome
 
 -- Utilities
 import XMonad.Util.Dmenu
@@ -172,6 +174,7 @@ myStartupHook = do
 
   spawnOnce "cfw &"
   spawnOnce "nitrogen --restore &"
+  spawnOnce "lxappearance &"
 
   spawnOnce "/usr/bin/emacs --daemon &"
 
@@ -180,6 +183,7 @@ myStartupHook = do
         ++ colorScheme
         ++ "-01.conkyrc"
     )
+
   spawn
     ( "sleep 2 && trayer --edge top --align right --widthtype request --padding 7 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 "
         ++ colorTrayer
