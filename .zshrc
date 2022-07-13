@@ -357,3 +357,8 @@ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
+
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+            

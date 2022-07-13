@@ -169,6 +169,15 @@
 
   // volatile settings
   "terminal.integrated.defaultProfile.linux": "zsh",
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "window.zoomLevel": 1,
 
-  "window.zoomLevel": 1
 }
