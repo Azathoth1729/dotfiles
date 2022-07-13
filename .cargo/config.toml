@@ -1,6 +1,12 @@
 [build]
 rustdocflags = ["--document-private-items"]
 
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+# replacing mirror
+replace-with = 'rsproxy'
+
+
 # 清华大学
 [source.tuna]
 registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
@@ -17,10 +23,13 @@ registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
 [source.rustcc]
 registry = "git://crates.rustcc.cn/crates.io-index"
 
-[source.crates-io]
-registry = "https://github.com/rust-lang/crates.io-index"
-# replacing mirror
-#replace-with = 'tuna'
 
+[source.rsproxy]
+registry = "https://rsproxy.cn/crates.io-index"
 
+[registries.rsproxy]
+index = "https://rsproxy.cn/crates.io-index"
+
+[net]
+git-fetch-with-cli = true
 
