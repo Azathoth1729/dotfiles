@@ -64,7 +64,6 @@ import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
 
-
 -- Layouts
 import XMonad.Layout.Accordion
 import XMonad.Layout.GridVariants (Grid (Grid))
@@ -312,16 +311,16 @@ tall =
               mySpacing 8 $
                 ResizableTall 1 (3 / 100) (1 / 2) []
 
-magnify =
-  renamed [Replace "magnify"] $
-    smartBorders $
-      windowNavigation $
-        addTabs shrinkText myTabTheme $
-          subLayout [] (smartBorders Simplest) $
-            magnifier $
-              limitWindows 12 $
-                mySpacing 8 $
-                  ResizableTall 1 (3 / 100) (1 / 2) []
+--magnify =
+--  renamed [Replace "magnify"] $
+--    smartBorders $
+--      windowNavigation $
+--        addTabs shrinkText myTabTheme $
+--          subLayout [] (smartBorders Simplest) $
+--            magnifier $
+--              limitWindows 12 $
+--                mySpacing 8 $
+--                  ResizableTall 1 (3 / 100) (1 / 2) []
 
 monocle =
   renamed [Replace "monocle"] $
@@ -419,7 +418,6 @@ myLayoutHook =
   where
     myDefaultLayout =
       withBorder myBorderWidth tall
-        ||| magnify
         ||| noBorders monocle
         ||| floats
         ||| noBorders tabs
@@ -546,7 +544,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Toggle most recently visited workspace
       ((modm, xK_z), toggleWS),
       -- find a free workspace
-      ((modm, xK_d), moveTo Next EmptyWS),
+      ((modm, xK_d), moveTo Next emptyWS),
 
       -- Shrink the master area
       ((modm, xK_h), sendMessage Shrink),
