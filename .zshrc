@@ -24,7 +24,6 @@ else
     export VISUAL=/usr/bin/vim
 fi
 
-
 #export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
 #export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
 
@@ -77,6 +76,10 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 # rust path for nvim
 export RS_BIN="$HOME/.cargo/bin"
+
+# rust source settings
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
 ### EXPORT ###
 
@@ -359,6 +362,4 @@ fi
 # export ARCHFLAGS="-arch x86_64"
 
 
-export RUSTUP_DIST_SERVER="https://rsproxy.cn"
-export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
             
