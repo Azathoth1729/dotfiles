@@ -179,5 +179,8 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "window.zoomLevel": 1,
+  "[python]": {
+    "editor.formatOnType": true
+  },
 
 }

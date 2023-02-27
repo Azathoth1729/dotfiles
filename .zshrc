@@ -68,6 +68,7 @@ export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 if [ -x "$(command -v go)" ]; then
 export GOPATH=$(go env GOPATH) # Set GOPATH
 export GO111MODULE=on
+export PATH=$PATH:$GOPATH/bin
 fi
 
 # volta
@@ -110,7 +111,7 @@ alias mkdir="mkdir -pv"
 ## confirmations
 alias mv="mv -i"
 alias cp="cp -i"
-alias rm="rm -i"
+alias rm="rm -I"
 alias ln="ln -i"
 
 # switch between shells
@@ -171,21 +172,21 @@ alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
 withproxy() {
     export http_proxy=http://127.0.0.1:$1
     export https_proxy=http://127.0.0.1:$1
-    export all_proxy=socks5://127.0.0.1:$1
+    export all_proxy=https://127.0.0.1:$1
     echo "proxy is now firing up."
-    echo http_proxy:$http_proxy 
-    echo https_proxy:$https_proxy
-    echo all_proxy:$all_proxy
+    echo http_proxy=$http_proxy 
+    echo https_proxy=$https_proxy
+    echo all_proxy=$all_proxy
 }
 
 onproxy() {
     export http_proxy=http://127.0.0.1:9999
     export https_proxy=http://127.0.0.1:9999
-    export all_proxy=socks5://127.0.0.1:9999
+    export all_proxy=https://127.0.0.1:9999
     echo "proxy is now firing up."
-    echo http_proxy:$http_proxy
-    echo https_proxy:$https_proxy
-    echo all_proxy:$all_proxy
+    echo http_proxy=$http_proxy
+    echo https_proxy=$https_proxy
+    echo all_proxy=$all_proxy
 }
 
 offproxy() {
