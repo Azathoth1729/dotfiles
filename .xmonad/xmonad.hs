@@ -173,7 +173,7 @@ myStartupHook = do
 
   spawnOnce "cfw &"
   spawnOnce "nitrogen --restore &"
-  spawnOnce "lxappearance &"
+--  spawnOnce "lxappearance &"
 
   spawnOnce "/usr/bin/emacs --daemon &"
 
@@ -604,12 +604,14 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
 myKeys2 :: [(String, X ())]
 myKeys2  =
     -- launch a terminal
-    [ ("M-<Return>", spawn (myTerminal)),
-
-      ("M-p", spawn "rofi -show drun"), -- rofi
-
-      ("M-S-c", kill),      -- Kill the currently focused client
-      ("M-S-a", killAll),   -- Kill all windows on current workspace
+    [
+      ("M-<Return>", spawn (myTerminal)),
+      -- Run rofi
+      ("M-p", spawn "rofi -show drun"), 
+      -- Kill the currently focused client
+      ("M-S-c", kill),
+      -- Kill all windows on current workspace
+      ("M-S-a", killAll),
       -- Rotate through the available layout algorithms
       ("M-<Space>", sendMessage NextLayout),
       --  Reset the layouts on the current workspace to default
