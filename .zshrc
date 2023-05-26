@@ -109,9 +109,9 @@ fi
 alias mkdir="mkdir -pv"
 
 ## confirmations
-alias mv="mv -i"
-alias cp="cp -i"
-alias rm="rm -I"
+#alias mv="mv -i"
+#alias cp="cp -i"
+#alias rm="rm -I"
 alias ln="ln -i"
 
 # switch between shells
@@ -132,6 +132,9 @@ if [ -d "$HOME/dotfiles" ]; then
     alias cm="config commit -v"
     alias cst="config status"
     alias crm="config rm -r --cached"
+
+    alias crs="config restore"
+    alias crst="config restore --staged"
 fi
 
 
@@ -150,6 +153,7 @@ if [ -x "$(command -v neovide)" ]; then
 fi
 
 # software
+
 if [ -x "$(command -v ranger)" ]; then
     alias r="ranger"
 fi
