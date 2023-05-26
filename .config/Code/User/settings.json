@@ -178,9 +178,12 @@
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 2,
   "[python]": {
     "editor.formatOnType": true
   },
+  "go.toolsManagement.autoUpdate": true,
+  "haskell.ghcupExecutablePath": "/home/azathoth/.ghcup/bin/ghcup",
+  "haskell.manageHLS": "GHCup",
 
 }
