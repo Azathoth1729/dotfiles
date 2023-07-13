@@ -6,23 +6,27 @@ Personal bare repo for configuration backup on linux system
 
 ### Windows Manager
 
-#### xmonad
+#### xmonad + xmobar
+
+### Useful command line tools
+
++ ranger
++ mcfly
++ bat
++ fd
++ exa
++ dust
++ ripgrep
 
 ### Other frequently used tools
 
++ zsh + oh-my-zsh
 + alacritty
-
-+ ranger
-
-+ doom
-
-+ nitrogen
-
 + starship
-  
-+ dunst
-
 + conky
++ nitrogen
++ doom
++ neovim
 
 ## Links
 
