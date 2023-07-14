@@ -1,55 +1,38 @@
-#### This is My Zsh configuration ####
+########### This is My Zsh configuration ###########
 
+########### ZSH-START ###########
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# oh-my-zsh plugins
 plugins=(
-	zsh-autosuggestions 
-    zsh-syntax-highlighting
-	conda-zsh-completion 
-    extract
-	sudo git
-	)
+    zsh-autosuggestions zsh-syntax-highlighting
+    conda-zsh-completion
+    extract sudo git
+)
 
-### EXPORT ###
-export TERM="xterm-256color"                      # getting proper colors
-export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
-
-
-if [ -x "$(command -v nvim)" ]; then
-    export EDITOR=/usr/bin/nvim
-    export VISUAL=/usr/bin/nvim
+# prompt
+if [ -x "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
 else
-    export EDITOR=/usr/bin/vim
-    export VISUAL=/usr/bin/vim
+    # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+    ZSH_THEME="robbyrussell"
 fi
 
-#export EDITOR="emacsclient -t -a ''"              # $EDITOR use Emacs in terminal
-#export VISUAL="emacsclient -c -a emacs"           # $VISUAL use Emacs in GUI mode
-
-# zsh and oh-my-zsh
+# soucre oh my zsh
 export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
+########### ZSH-END ###########
+
+########### EXPORTS-START ###########
+
+export TERM="xterm-256color"   # getting proper colors
+export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
 
 # custom path setting
 export WORKSHOP="$HOME/workshop"
 export SCRIPTS="$WORKSHOP/scripts"
 
-
-#export PAGER="sh -c 'col -bx | bat -l man -p'"
-
 export TERMINFO=/usr/share/terminfo
-
-## set manpager
-
-# "bat" as manpager
-if [ -x "$(command -v bat)" ]; then
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
-# "vim" as manpager
-# "nvim" as manpager
 
 # pdf2pptx
 export PATH="$SCRIPTS/pdf2pptx:$PATH"
@@ -66,9 +49,9 @@ export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 # go
 if [ -x "$(command -v go)" ]; then
-export GOPATH=$(go env GOPATH) # Set GOPATH
-export GO111MODULE=on
-export PATH=$PATH:$GOPATH/bin
+    export GOPATH=$(go env GOPATH) # Set GOPATH
+    export GO111MODULE=on
+    export PATH=$PATH:$GOPATH/bin
 fi
 
 # volta
@@ -82,10 +65,11 @@ export RS_BIN="$HOME/.cargo/bin"
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
-### EXPORT ###
+########### EXPORTS-END ###########
 
 
-### ALIASES ###
+
+########### ALIASES-START ###########
 
 ## usual
 alias c="clear"
@@ -96,29 +80,22 @@ alias rb="reboot"
 alias pf="poweroff"
 alias sysctl="sudo systemctl"
 
-## changing "ls" to "exa"
-if [ -x "$(command -v exa)" ]; then
-    alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-    alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-    alias ll='exa -l --color=always --group-directories-first'  # long format
-    alias lt='exa -aT --color=always --group-directories-first' # tree listing
-    alias l.='exa -a | egrep "^\."' 			                # list dotfiles only
-fi 
-
-## mkdir create parents by default
+# mkdir create parents by default
 alias mkdir="mkdir -pv"
 
-## confirmations
-#alias mv="mv -i"
-#alias cp="cp -i"
-#alias rm="rm -I"
+# ln confirmations
 alias ln="ln -i"
+
+# editor
+alias em="emacsclient -t -a ''"
+
+# restart xmonad
+alias rx="xmonad --recompile; xmonad --restart" 
 
 # switch between shells
 # I do not recommend switching default SHELL from bash.
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
-
 
 ## git bare repo alias for dotfiles
 if [ -d "$HOME/dotfiles" ]; then
@@ -132,45 +109,93 @@ if [ -d "$HOME/dotfiles" ]; then
     alias cm="config commit -v"
     alias cst="config status"
     alias crm="config rm -r --cached"
-
     alias crs="config restore"
     alias crst="config restore --staged"
 fi
 
+########### ALIASE-END ###########
 
-## applications
 
-# editor
 
-alias em="emacsclient -t -a ''"
+########### APPLICATION-START ###########
+
+# changing "ls" to "exa"
+if [ -x "$(command -v exa)" ]; then
+    alias ls='exa -al --color=always --group-directories-first' # my preferred listing
+    alias la='exa -a --color=always --group-directories-first'  # all files and dirs
+    alias ll='exa -l --color=always --group-directories-first'  # long format
+    alias lt='exa -aT --color=always --group-directories-first' # tree listing
+    alias l.='exa -a | egrep "^\."' 			                      # list dotfiles only
+fi
+
+# "bat" as manpager
+if [ -x "$(command -v bat)" ]; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# nvim
+if [ -x "$(command -v nvim)" ]; then
+    export EDITOR=/usr/bin/nvim
+    export VISUAL=/usr/bin/nvim
+else
+    export EDITOR=/usr/bin/vim
+    export VISUAL=/usr/bin/vim
+fi
 
 if [ -x "$(command -v nvim)" ]; then
     alias v="nvim"
 fi
 
+# neovide
 if [ -x "$(command -v neovide)" ]; then
     alias vd="neovide"
 fi
 
-# software
-
+# ranger
 if [ -x "$(command -v ranger)" ]; then
     alias r="ranger"
 fi
 
+# screenfetch
 if [ -x "$(command -v screenfetch)" ]; then
     alias sf="screenfetch"
 fi
 
-alias clashst="sysctl status clash"
-alias clashr="sysctl restart clash" 		# restart clash
-alias rx="xmonad --recompile; xmonad --restart" # restart xmonad
+# mcfly
+if [ -x "$(command -v mcfly)" ]; then
+    eval "$(mcfly init zsh)"
+fi
 
-### ALIASES ###
+# zoxide
+if [ -x "$(command -v zoxide)" ]; then
+    eval "$(zoxide init zsh)"
+fi
+
+########### APPLICATION-END ###########
 
 
 
-### UTIL FUNCS ###
+########### Eval & Source-START ###########
+
+# use dircolors
+if [ -f $HOME/.dir_colors/dircolors_nord ]; then
+    eval `dircolors $HOME/.dir_colors/dircolors_nord`
+fi
+
+# conda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
+# ghcup
+[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
+
+# opam (Ocaml)
+[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
+
+########### Eval and Source-END ###########
+
+
+
+########### UTIL-FUNCS-START ###########
 
 ## proxy
 withproxy() {
@@ -178,7 +203,7 @@ withproxy() {
     export https_proxy=http://127.0.0.1:$1
     export all_proxy=https://127.0.0.1:$1
     echo "proxy is now firing up."
-    echo http_proxy=$http_proxy 
+    echo http_proxy=$http_proxy
     echo https_proxy=$https_proxy
     echo all_proxy=$all_proxy
 }
@@ -208,30 +233,30 @@ showproxy() {
 
 ## navigation
 up() {
-  local d=""
-  local limit="$1"
-
-  # Default to limit of 1
-  if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
-    limit=1
-  fi
-
-  for ((i=1;i<=limit;i++)); do
-    d="../$d"
-  done
-
-  # perform cd. Show error if cd fails
-  if ! cd "$d"; then
-    echo "Couldn't go up $limit dirs.";
-  fi
+    local d=""
+    local limit="$1"
+    
+    # Default to limit of 1
+    if [ -z "$limit" ] || [ "$limit" -le 0 ]; then
+        limit=1
+    fi
+    
+    for ((i=1;i<=limit;i++)); do
+        d="../$d"
+    done
+    
+    # perform cd. Show error if cd fails
+    if ! cd "$d"; then
+        echo "Couldn't go up $limit dirs.";
+    fi
 }
 
 ## swap two files
 swap() {
-  local TMPFILE=tmp.$$
-  sudo mv "$1" $TMPFILE
-  sudo mv "$2" "$1"
-  sudo mv $TMPFILE "$2"
+    local TMPFILE=tmp.$$
+    sudo mv "$1" $TMPFILE
+    sudo mv "$2" "$1"
+    sudo mv $TMPFILE "$2"
 }
 
 ## scp && ssh
@@ -239,7 +264,7 @@ swap() {
 # scp locally
 scp-local() {
     local hostname=$1  # in host name ssh config
-    local src=$2 
+    local src=$2
     local tar=$3
     echo moving $src to $hostname:$tar...
     scp -rF $HOME/.ssh/config $src $hostname:$tar
@@ -250,49 +275,12 @@ scp-config(){
     bat $HOME/.ssh/config
 }
 
-## quickly edit zsh config uisng $EDITOR
+# quickly edit zsh config uisng $EDITOR
 econ() {
     $EDITOR $HOME/.zshrc
 }
 
-
-### UTIL FUNCS ###
-
+########### UTIL-FUNCS-END ###########
 
 
-### Eval and Source ###
-# use dircolors
-if [ -f $HOME/.dir_colors/dircolors_nord ]; then
-eval `dircolors $HOME/.dir_colors/dircolors_nord`
-fi
 
-# mcfly
-if [ -x "$(command -v mcfly)" ]; then
-    eval "$(mcfly init zsh)"
-fi
-
-# prompt
-if [ -x "$(command -v starship)" ]; then
-    eval "$(starship init zsh)"
-else
-    # Set name of the theme to load --- if set to "random", it will
-    # load a random theme each time oh-my-zsh is loaded, in which case,
-    # to know which specific one was loaded, run: echo $RANDOM_THEME
-    # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-    ZSH_THEME="robbyrussell"
-fi
-
-if [ -x "$(command -v zoxide)" ]; then
-    eval "$(zoxide init zsh)"
-fi
-
-# conda
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-
-# ghcup
-[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
-
-# opam (Ocaml)
-[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null
-
-### Eval and Source ###
