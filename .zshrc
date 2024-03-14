@@ -18,8 +18,19 @@ else
 fi
 
 # soucre oh my zsh
-export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
+OHMYZSH="$HOME/.oh-my-zsh"
+if [ -d $OHMYZSH ]; then
+  export ZSH="$HOME/.oh-my-zsh"
+  source $ZSH/oh-my-zsh.sh
+else
+  if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+    source /usr/share/zsh/manjaro-zsh-config
+  fi
+  # Use manjaro zsh prompt
+  if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+    source /usr/share/zsh/manjaro-zsh-prompt
+  fi
+fi
 
 ########### ZSH-END ###########
 
@@ -197,38 +208,36 @@ fi
 
 ########### UTIL-FUNCS-START ###########
 
-## proxy
-withproxy() {
-    export http_proxy=http://127.0.0.1:$1
-    export https_proxy=http://127.0.0.1:$1
-    export all_proxy=https://127.0.0.1:$1
-    echo "proxy is now firing up."
-    echo http_proxy=$http_proxy
-    echo https_proxy=$https_proxy
-    echo all_proxy=$all_proxy
-}
-
-onproxy() {
-    export http_proxy=http://127.0.0.1:9999
-    export https_proxy=http://127.0.0.1:9999
-    export all_proxy=https://127.0.0.1:9999
-    echo "proxy is now firing up."
-    echo http_proxy=$http_proxy
-    echo https_proxy=$https_proxy
-    echo all_proxy=$all_proxy
-}
-
-offproxy() {
-    unset http_proxy
-    unset https_proxy
-    unset all_proxy
-    echo "uset http_proxy https_proxy all_proxy"
-}
-
-showproxy() {
+## proxy related function
+function pr() {
+  case $1 in
+  show)
     echo http_proxy:$http_proxy
     echo https_proxy:$https_proxy
     echo all_proxy:$all_proxy
+    ;;
+  off)
+    unset http_proxy
+    unset https_proxy
+    echo "uset http_proxy https_proxy"
+    ;;
+  on)
+    export http_proxy=http://127.0.0.1:9999
+    export https_proxy=http://127.0.0.1:9999
+    echo "proxy is now firing up."
+    echo http_proxy=$http_proxy
+    echo https_proxy=$https_proxy
+    echo all_proxy=$all_proxy
+    ;;
+  with)
+    echo $2
+    export http_proxy=http://127.0.0.1:$2
+    export https_proxy=http://127.0.0.1:$2
+    echo "proxy is now firing up."
+    echo http_proxy=$http_proxy
+    echo https_proxy=$https_proxy
+    ;;
+  esac
 }
 
 ## navigation
