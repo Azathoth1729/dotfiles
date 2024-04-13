@@ -12,5 +12,5 @@
 #	proxy = https://127.0.0.1:9981
 
 [core]
-    editor = nvim
+    editor = vim
     pager = bat 
