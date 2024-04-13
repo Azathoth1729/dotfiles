@@ -2,6 +2,10 @@
 
 Personal bare repo for configuration backup on linux system
 
+## How to store/sync dotfiles using git repo
+
+[Dotfiles: Best way to store in a bare git repository](https://www.atlassian.com/git/tutorials/dotfiles)
+
 ## My Working Environment
 
 ### Windows Manager
@@ -10,11 +14,12 @@ Personal bare repo for configuration backup on linux system
 
 ### Useful command line tools
 
++ vim/neovim
 + ranger
 + mcfly
 + bat
 + fd
-+ exa
++ eza
 + dust
 + ripgrep
 
@@ -26,7 +31,6 @@ Personal bare repo for configuration backup on linux system
 + conky
 + nitrogen
 + doom
-+ neovim
 
 ## Links
 
