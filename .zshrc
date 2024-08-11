@@ -36,19 +36,18 @@ fi
 
 ########### EXPORTS-START ###########
 
-if [ -z "$XDG_CONFIG_HOME" ] ; then
+if [ -z "$XDG_CONFIG_HOME" ]; then
     export XDG_CONFIG_HOME="$HOME/.config"
 fi
-if [ -z "$XDG_DATA_HOME" ] ; then
+if [ -z "$XDG_DATA_HOME" ]; then
     export XDG_DATA_HOME="$HOME/.local/share"
 fi
-if [ -z "$XDG_CACHE_HOME" ] ; then
+if [ -z "$XDG_CACHE_HOME" ]; then
     export XDG_CACHE_HOME="$HOME/.cache"
 fi
 export XMONAD_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/xmonad" # xmonad.hs is expected to stay here
 export XMONAD_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
 export XMONAD_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/xmonad"
-
 
 export TERM="xterm-256color" # getting proper colors
 export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..|clear)"
@@ -200,7 +199,7 @@ fi
 ########### Eval & Source-START ###########
 
 # use dircolors
-if [ -f $HOME/.dir_colors/dircolors_nord ]; then
+if [ -f $HOME/.dir_colors/dircolors_nord ] && [ -x "$(command -v dircolors)" ]; then
     eval $(dircolors $HOME/.dir_colors/dircolors_nord)
 fi
 
@@ -208,10 +207,10 @@ fi
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
 # ghcup
-[ -f "/home/azathoth/.ghcup/env" ] && source "/home/azathoth/.ghcup/env" # ghcup-env
+[ -f "/home/azathoth/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
 # opam (Ocaml)
-[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source /home/azathoth/.opam/opam-init/init.zsh >/dev/null 2>/dev/null
+[[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh >/dev/null 2>/dev/null
 
 ########### Eval and Source-END ###########
 
