@@ -82,8 +82,9 @@ fi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# rust path for nvim
+# rust path
 export RS_BIN="$HOME/.cargo/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # rust source settings
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
@@ -306,3 +307,4 @@ econ() {
 }
 
 ########### UTIL-FUNCS-END ###########
+

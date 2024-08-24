@@ -45,8 +45,6 @@
 #export VOLTA_HOME="$HOME/.volta"
 #export PATH="$VOLTA_HOME/bin:$PATH"
 
-# cargo
-#source "$HOME/.cargo/env"
 
 # doom emacs
 #export PATH=$PATH:$HOME/.emacs.d/doom/bin
@@ -55,3 +53,4 @@
 # Added by Toolbox App
 export PATH="$PATH:/home/azathoth/.local/share/JetBrains/Toolbox/scripts"
 
+. "$HOME/.cargo/env"
