@@ -1,3 +1,6 @@
+# Launch App
+alt - return : open -a "/Applications/Warp.app"
+
 # -- Changing Window Focus --
 
 # change window focus within space
@@ -31,6 +34,14 @@ shift + alt - m : yabai -m window --toggle zoom-fullscreen
 
 # balance out tree of windows (resize to occupy same area)
 shift + alt - e : yabai -m space --balance
+
+# -- Browse  Windows Around --
+# Focus previous space by mission-control index
+alt - 0x2B : yabai -m space --focus prev
+alt - 0x2F : yabai -m space --focus next
+
+# Focus space focused before the current one (so you can alternate)
+alt - tab : yabai -m space --focus recent
 
 # -- Moving Windows Around --
 
