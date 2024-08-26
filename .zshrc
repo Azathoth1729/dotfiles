@@ -169,13 +169,15 @@ fi
 
 # nvim
 if [ -x "$(command -v nvim)" ]; then
-    export EDITOR=/usr/bin/nvim
-    export VISUAL=/usr/bin/nvim
+    export EDITOR=$(which nvim)
+    export VISUAL=$(which nvim)
     alias v="nvim"
+
 elif [ -x "$(command -v vim)" ]; then
-    export EDITOR=/usr/bin/vim
-    export VISUAL=/usr/bin/vim
+    export EDITOR=$(which nvim)
+    export VISUAL=$(which nvim)
     alias v="vim"
+
 else
     echo "nvim/vim not found"
 fi
@@ -196,12 +198,10 @@ if [ -x "$(command -v screenfetch)" ]; then
 fi
 
 # Set up fzf key bindings and fuzzy completion
-
-
 if [ -x "$(command -v fzf)" ]; then
     source <(fzf --zsh)
   if [ -x "$(command -v nvim)" ]; then
-      alias inv='nvim $(fzf -m --preview "bat --color=always {}")'
+     alias f='nvim $(fzf -m --preview "bat --color=always {}" --layout reverse)'
   fi
 fi
 
