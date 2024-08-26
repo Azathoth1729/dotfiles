@@ -90,6 +90,16 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 
+# llvm
+
+if [ -d "/opt/homebrew/opt/llvm" ]; then
+  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+fi
+
 ########### EXPORTS-END ###########
 
 ########### ALIASES-START ###########
@@ -185,6 +195,17 @@ if [ -x "$(command -v screenfetch)" ]; then
     alias sf="screenfetch"
 fi
 
+# Set up fzf key bindings and fuzzy completion
+
+
+if [ -x "$(command -v fzf)" ]; then
+    source <(fzf --zsh)
+  if [ -x "$(command -v nvim)" ]; then
+      alias inv='nvim $(fzf -m --preview "bat --color=always {}")'
+  fi
+fi
+
+
 # mcfly
 if [ -x "$(command -v mcfly)" ]; then
     eval "$(mcfly init zsh)"
@@ -208,7 +229,7 @@ fi
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
 # ghcup
-[ -f "/home/azathoth/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
 # opam (Ocaml)
 [[ ! -r /home/azathoth/.opam/opam-init/init.zsh ]] || source $HOME/.opam/opam-init/init.zsh >/dev/null 2>/dev/null
